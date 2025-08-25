@@ -457,6 +457,67 @@ const APPS = [
   download: 'https://ranoz.gg/file/6BWd4Q7q',
   mirrors: []
 },
+{
+  slug: 'tele-latino-4-11-5',
+  title: 'Tele Latino v4.11.5 Movil',
+  platform: 'Android',
+  version: '4.11.5',
+  size: '40 MB',
+  cover: 'https://content-hub.wlp.app/vpn/wp-content/uploads/sites/2/2024/06/tela-latino-cuenta-completa-1mes-e1718293663105.jpg',
+  tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming'],
+  description: `App de IPTV con TV en vivo, películas y series enfocada en contenido latino. Ofrece reproducción rápida en HD, servidores estables, buscador, favoritos, guía/EPG, subtítulos y soporte para Chromecast.`,
+  download: 'https://stly.link/telelatmobile',
+  mirrors: []
+},
+
+{
+  slug: 'tele-latino-tv',
+  title: 'Tele Latino – Versión TV',
+  platform: 'Android/TV',
+  version: 'TV',
+  size: '35 MB',
+  cover: 'https://akyhay.com/wp-content/uploads/2022/07/tele-latino.jpg',
+  tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming', 'android tv'],
+  description: `Edición optimizada para Android TV y TV Box. Interfaz para control remoto, navegación por categorías, guía/EPG, búsqueda, favoritos y reproducción estable en HD/Full HD con subtítulos. Ideal para ver canales latinos, películas y series directamente en la TV.`,
+  download: 'https://stly.link/telelatTV',
+  mirrors: []
+},
+{
+  slug: 'capcut-premium-15-2-0',
+  title: 'CapCut v15.2.0 [Premium]',
+  platform: 'Android',
+  version: '15.2.0',
+  size: '285 MB',
+  cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ_9Zwf08iY6UtBYcEtYPwmzHpmZrLhgNETQ&s',
+  tags: ['video', 'edición', 'plantillas', 'transiciones', '4k', 'chroma key', 'captions', 'velocidad'],
+  description: `Editor de video completo con plantillas, efectos, transiciones y filtros. Soporta exportación en HD/4K, edición por capas, keyframes, cámara lenta/velocidad, eliminación de fondo (chroma), auto-subtítulos y sincronización con música. Versión Premium sin marcas de agua y con recursos desbloqueados.`,
+  download: 'https://stly.link/capcuttt',
+  mirrors: []
+},
+{
+  slug: 'picsart-premium-28-2-8',
+  title: 'Picsart v28.2.8 [Premium]',
+  platform: 'Android',
+  version: '28.2.8',
+  size: '82 MB',
+  cover: 'https://shop.aedigi.com/wp-content/uploads/tai-khoan-picsart-pro-scaled.png',
+  tags: ['fotos', 'edición', 'filtros', 'efectos', 'collage', 'IA'],
+  description: `Editor todo en uno para fotos y videos con filtros, efectos, stickers, collages, texto y pinceles. Incluye herramientas de IA: eliminación de fondo/objetos, retoque automático, estilos “Magic” y plantillas premium. Exportá en alta calidad sin marca de agua.`,
+  download: 'https://stfly.vip/picpro',
+  mirrors: []
+},
+{
+  slug: 'ppsspp-gold-1-19-3-premium',
+  title: 'PPSSPP Gold v1.19.3 [Premium]',
+  platform: 'Android',
+  version: '1.19.3',
+  size: '31 MB',
+  cover: 'https://apkomtk.com/wp-content/uploads/2025/04/PPSSPP-Gold-PSP-emulator-APK.jpg',
+  tags: ['emulador', 'psp', 'juegos', '60fps', 'save states', 'gamepad', 'vulkan'],
+  description: `Emulador PSP de alto rendimiento para Android con amplia compatibilidad. Ofrece escalado de resolución, filtros, control táctil personalizable, soporte para gamepad, guardado rápido (save states), carga de texturas y motores Vulkan/OpenGL para mayor fluidez a 60 FPS.`,
+  download: 'https://stfly.vip/ppsspp',
+  mirrors: []
+},
 
 
 
