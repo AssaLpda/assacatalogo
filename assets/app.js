@@ -559,6 +559,18 @@ const APPS = [
   download: 'https://stly.link/mytlktom',
   mirrors: []
 },
+{
+  slug: 'instagram-246-1-0-16-113',
+  title: 'Instagram v246.1.0.16.113',
+  platform: 'Android',
+  version: '246.1.0.16.113',
+  size: '50 MB',
+  cover: 'assets/img/insta.png',
+  tags: ['social', 'fotos', 'videos', 'reels', 'stories', 'mensajes'],
+  description: `Comparte fotos y videos, crea Reels y Stories con música, filtros y efectos. Incluye mensajes privados y canales, transmisiones en vivo, estadísticas para creadores y opciones de edición avanzadas.`,
+  download: 'https://stly.link/instaprov2',
+  mirrors: []
+},
 
 
 
