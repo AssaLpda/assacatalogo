@@ -510,6 +510,35 @@ const APPS = [
     download: 'https://stfly.vip/ppsspp',
     mirrors: []
   },
+{
+  slug: 'logowiz-108-0-premium',
+  title: 'LogoWiz v108.0 [Premium Features Unlocked]',
+  platform: 'Android',
+  version: '108.0',
+  size: '42.8 MB',
+  cover: 'https://blogger.googleusercontent.com/img/a/AVvXsEjSzalQ9hcqyGyEy46wRtsAuWcOHKBk06Vma2SDz89unwgBy1yKhbqdY2jvG7ly1KvkQ-H8JiALEgrYy8aTwTY4SVKKHcAtcGv3q7rr90pJCwl9-CiY1PUkhjeZwJpj4p5gO2kTWMm_1MYg0Akfe_G6vmkx2fE1inEka1rOKaX6_zEeVSxcGx6wF1DZAX4=s480',
+  tags: ['logo maker', 'diseño', 'marca', 'plantillas', 'iconos', 'tipografías', 'png transparente'],
+  description: `Creador de logos con miles de plantillas, iconos y fuentes listos para editar. Ajustá colores, sombras y capas, eliminá fondo y exportá en alta calidad con fondo transparente para redes, tiendas y branding. Versión Premium con recursos desbloqueados y sin marcas de agua.`,
+  download: 'https://stly.link/logwiz',
+  mirrors: []
+},
+
+{
+  slug: 'whatsapp-plus-vctm-2-0-0-yesiimods',
+  title: 'WhatsApp Plus VCTM v2.0.0 (YesiiMods)',
+  platform: 'Android',
+  version: '2.0.0',
+  size: '153.3 MB',
+  cover: 'assets/img/whatyes.jpg',
+  tags: ['mensajería', 'whatsapp', 'mod', 'temas', 'personalización', 'privacidad'],
+  description: `Versión modificada de WhatsApp con opciones extra de privacidad y personalización: ocultar estados/ticks, temas y estilos, control de descargas, envío de archivos grandes y ajustes visuales avanzados. Ideal para quien busca más control y apariencia que en la app oficial.`,
+  download: 'https://stly.link/whatyes',
+  mirrors: []
+},
+
+
+
+
 ];
 
 // ==========================
