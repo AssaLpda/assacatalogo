@@ -445,6 +445,18 @@ const APPS = [
   download: 'https://srtslug.biz/8bknt',
   mirrors: []
 },
+{
+  slug: 'pvz-2-mod-9-9-2',
+  title: 'Plants vs. Zombies 2 v9.9.2 [MOD]',
+  platform: 'Android',
+  version: '9.9.2',
+  size: '30 MB',
+  cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-ScHESNYKXuUZ9aJleq1pbAsgGY56EKnZQ&s',
+  tags: ['juego', 'tower defense', 'estrategia', 'mod', 'offline', 'clásico'],
+  description: `Defendé tu jardín en el clásico tower defense con plantas, poderes y mundos temáticos. La edición MOD suele incluir ventajas/desbloqueos para acelerar la progresión (puede variar según el build). Ideal para partidas rápidas offline y completar eventos por tiempo.`,
+  download: 'https://ranoz.gg/file/6BWd4Q7q',
+  mirrors: []
+},
 
 
 
