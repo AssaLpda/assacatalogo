@@ -535,6 +535,30 @@ const APPS = [
   download: 'https://stly.link/whatyes',
   mirrors: []
 },
+{
+  slug: 'magistv-tv-apk',
+  title: 'MagisTV – Versión TV',
+  platform: 'Android/TV',
+  version: 'TV',
+  size: '34 MB',
+  cover: 'assets/img/magistvtv.png',
+  tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'streaming', 'android tv', 'tv box'],
+  description: `Edición optimizada para Android TV y TV Box: interfaz para control remoto, navegación por categorías, guía/EPG, búsqueda, favoritos y reproducción estable en HD/Full HD con subtítulos. Ideal para ver canales en vivo, películas y series directamente en la TV.`,
+  download: 'https://stly.link/mgtvtv',
+  mirrors: []
+},
+{
+  slug: 'my-talking-tom-mod-7-1-4-2471',
+  title: 'My Talking Tom v7.1.4.2471 [MOD]',
+  platform: 'Android',
+  version: '7.1.4.2471',
+  size: '108 MB',
+  cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLPwgyochlf4Ozksa4Sg4XG2adNWUr84nKYA&s',
+  tags: ['juego', 'mascota virtual', 'simulación', 'minijuegos', 'mod', 'offline'],
+  description: `Cuida a Tom, dale de comer, bañalo y decorá su casa mientras completás minijuegos y desbloqueás ropa y accesorios. La versión MOD suele incluir monedas/objetos desbloqueados para progresar más rápido (puede variar según el build).`,
+  download: 'https://stly.link/mytlktom',
+  mirrors: []
+},
 
 
 
