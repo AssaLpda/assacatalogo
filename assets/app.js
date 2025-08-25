@@ -146,7 +146,7 @@ const APPS = [
     platform: 'Android',
     version: '25.15.0',
     size: '40 MB',
-    cover: 'assets/img/ccleaner.png',
+    cover: 'https://i.ytimg.com/vi/8wJYuwXs9uw/maxresdefault.jpg',
     tags: ['limpieza', 'rendimiento', 'optimización'],
     description: `Optimiza tu dispositivo, limpia archivos innecesarios y mejora el rendimiento con la versión Pro de CCleaner.`,
     download: 'https://srtslug.biz/8b9Fm',
