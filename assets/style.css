@@ -1,9 +1,87 @@
-html {
-  scroll-behavior: smooth;
+/* === Filtro de categorías (segmented control) ======================= */
+
+/* Contenedor scrollable (chips) */
+.segmented-wrap {
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
-/* Personalización opcional */
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+/* Scrollbar (Chromium/WebKit) */
+.segmented-wrap::-webkit-scrollbar {
+  height: 8px;
 }
+.segmented-wrap::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.6); /* slate-800 */
+  border-radius: 8px;
+}
+.segmented-wrap::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.5); /* slate-500 */
+  border-radius: 8px;
+}
+.segmented-wrap::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7); /* slate-400 */
+}
+
+/* Grupo de botones segmentados */
+.segmented {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(15, 23, 42, 0.7);       /* slate-900/70 */
+  border: 1px solid rgb(30, 41, 59);       /* slate-800 */
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+/* Oculta los radios */
+.segmented input {
+  display: none;
+}
+
+/* Botones (labels) */
+.segmented label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: rgb(203, 213, 225);               /* slate-300 */
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s ease, color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.segmented label:hover {
+  background: rgba(51, 65, 85, 0.4);       /* slate-700/40 */
+  color: #fff;
+}
+.segmented label svg {
+  opacity: 0.8;
+}
+
+/* Estado activo */
+.segmented input:checked + label {
+  background: rgb(2, 132, 199);            /* sky-600 */
+  color: #fff;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4) inset; /* sky-400/40 */
+}
+.segmented input:checked + label svg {
+  opacity: 1;
+}
+
+/* Animación sutil (opcional) */
+@media (prefers-reduced-motion: no-preference) {
+  .segmented label:active {
+    transform: translateY(1px);
+  }
+}
+
+/* === Fallback opcional por CSS (si JS no corre) ===================== */
+/* Si #app lleva data-filter, ocultá lo que no coincida */
+#app[data-filter="juegos"] .app-card:not([data-category~="juegos"]) { display: none !important; }
+#app[data-filter="aplicaciones"] .app-card:not([data-category~="aplicaciones"]) { display: none !important; }
+#app[data-filter="programas"] .app-card:not([data-category~="programas"]) { display: none !important; }
+#app[data-filter="sistemas"] .app-card:not([data-category~="sistemas"]) { display: none !important; }
+
