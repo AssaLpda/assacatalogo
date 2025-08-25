@@ -63,7 +63,7 @@ const APPS = [
     version: '18.70',
     size: '112 MB',
     cover: '/assets/img/whatsapp.png',
-    tags: ['juegos', 'premium', 'sandbox'],
+    tags: ['Aplicaciones', 'premium', 'sandbox'],
     description: `Construye, explora y sobrevive en mundos infinitos. Versión comprada, lista para instalar.`,
     download: 'https://srtslug.biz/wspls',
     mirrors: []
@@ -470,6 +470,7 @@ const APPS = [
 
 ];
 
+
 // ==========================
 // UTILIDADES
 // ==========================
@@ -491,37 +492,67 @@ const isUnlocked = (slug) => !!localStorage.getItem(`unlock_${slug}`);
 // VISTAS
 // ==========================
 function HomeView() {
-  const grid = APPS.map(app => `
-    <article class="group rounded-2xl border border-slate-800 bg-slate-900/50 overflow-hidden hover:border-sky-700 transition">
-      <a href="#/app/${app.slug}" class="block">
-        <div class="aspect-[16/9] bg-slate-800 overflow-hidden">
-          <img src="${app.cover}" alt="${app.title}" loading="lazy" class="h-full w-full object-cover group-hover:scale-105 transition" />
-        </div>
-        <div class="p-4 flex flex-col gap-2">
-          <h3 class="text-base font-semibold">${app.title}</h3>
-          <p class="text-xs text-slate-400">${app.platform} · v${app.version} · ${app.size ?? ''}</p>
-          <div class="flex gap-2 flex-wrap">${fmtTags(app.tags)}</div>
-        </div>
-      </a>
-    </article>
-  `).join('');
+  // Barra superior con título + ordenar + filtros
+  const controls = `
+    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight">Todas las aplicaciones</h1>
+        <p class="text-slate-400">${APPS.length} elementos</p>
+      </div>
 
-  return `
-    <section class="space-y-6">
-      <div class="flex items-end justify-between gap-4">
-        <div>
-          <h1 class="text-2xl md:text-3xl font-bold tracking-tight">Todas las aplicaciones</h1>
-          <p class="text-slate-400">${APPS.length} elementos</p>
-        </div>
+      <div class="flex flex-col gap-3 md:items-end">
         <div class="flex gap-2">
           <button id="btnSortAZ" class="rounded-xl border border-slate-800 px-3 py-2 text-sm hover:bg-slate-900">A–Z</button>
           <button id="btnSortZA" class="rounded-xl border border-slate-800 px-3 py-2 text-sm hover:bg-slate-900">Z–A</button>
         </div>
+
+        <!-- Filtros -->
+        <div class="segmented-wrap overflow-x-auto">
+          <div class="segmented min-w-max">
+            <input type="radio" name="cat" id="f-todos" value="todos" checked>
+            <label for="f-todos" title="Mostrar todo">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z"/></svg>
+              Todos
+            </label>
+
+            <input type="radio" name="cat" id="f-juegos" value="juegos">
+            <label for="f-juegos" title="Sólo juegos">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M17 6H7a5 5 0 0 0-5 5v2a5 5 0 0 0 5 5h1l2-2h4l2 2h1a5 5 0 0 0 5-5v-2a5 5 0 0 0-5-5M8.5 13A1.5 1.5 0 1 1 10 11.5A1.5 1.5 0 0 1 8.5 13M15.5 13A1.5 1.5 0 1 1 17 11.5A1.5 1.5 0 0 1 15.5 13Z"/></svg>
+              Juegos
+            </label>
+
+            <input type="radio" name="cat" id="f-aplicaciones" value="aplicaciones">
+            <label for="f-aplicaciones" title="Sólo aplicaciones">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v4H3zm0 5h18v4H3zm0 5h18v4H3z"/></svg>
+              Aplicaciones
+            </label>
+
+            <input type="radio" name="cat" id="f-programas" value="programas">
+            <label for="f-programas" title="Sólo programas (PC)">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v10H4zM2 18h20v2H2z"/></svg>
+              Programas
+            </label>
+
+            <input type="radio" name="cat" id="f-sistemas" value="sistemas">
+            <label for="f-sistemas" title="Sólo sistemas operativos">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v12H4zM2 18h20v2H2z"/></svg>
+              Sistemas
+            </label>
+          </div>
+        </div>
       </div>
-      <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">${grid}</div>
+    </div>
+  `;
+
+  // Contenedor del grid (se rellena en bindHome)
+  return `
+    <section class="space-y-6">
+      ${controls}
+      <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
   `;
 }
+
 
 function AppView(slug) {
   const app = bySlug(slug);
@@ -591,6 +622,32 @@ function NotFoundView(){
   </div>`;
 }
 
+// Categoría automática para el filtro
+function deriveCategory(app) {
+  const tags = (app.tags || []).map(t => t.toLowerCase());
+  const title = (app.title || '').toLowerCase();
+  const platform = (app.platform || '').toLowerCase();
+
+  // Juegos (por tags)
+  const gameHints = ['juego','juegos','arcade','runner','acción','mundo abierto','estrategia','tower defense'];
+  if (tags.some(t => gameHints.includes(t))) return 'juegos';
+
+  // Windows: decidir Programas vs Sistemas (Lite/Tiny/OS)
+  if (platform.startsWith('windows')) {
+    const isOS =
+      tags.includes('lite') ||
+      tags.includes('bajo-recursos') ||
+      title.includes('tiny') ||
+      title.includes('x lite') ||
+      title.includes('versión lite');
+    return isOS ? 'sistemas' : 'programas';
+  }
+
+  // Resto (Android, etc.)
+  return 'aplicaciones';
+}
+
+
 // ==========================
 // RENDER
 // ==========================
@@ -613,22 +670,22 @@ function render(){
 // ==========================
 // BINDINGS
 // ==========================
-function bindHome(){
+function bindHome() {
   const grid = document.getElementById('grid');
   const search = document.getElementById('searchInput');
+  const radios = Array.from(document.querySelectorAll('input[name="cat"]'));
 
-  const applyFilter = () => {
-    const q = (search.value || '').toLowerCase();
-    const filtered = APPS.filter(a => (
-      a.title.toLowerCase().includes(q) ||
-      a.tags?.some(t => t.toLowerCase().includes(q)) ||
-      (a.platform||'').toLowerCase().includes(q)
-    ));
-    grid.innerHTML = filtered.map(app => `
-      <article class="group rounded-2xl border border-slate-800 bg-slate-900/50 overflow-hidden hover:border-sky-700 transition">
+  let currentSort = 'AZ'; // 'AZ' | 'ZA'
+
+  const cardHTML = (app) => {
+    const cat = deriveCategory(app);
+    return `
+      <article class="app-card group rounded-2xl border border-slate-800 bg-slate-900/50 overflow-hidden hover:border-sky-700 transition"
+               data-category="${cat}">
         <a href="#/app/${app.slug}" class="block">
           <div class="aspect-[16/9] bg-slate-800 overflow-hidden">
-            <img src="${app.cover}" alt="${app.title}" loading="lazy" class="h-full w-full object-cover group-hover:scale-105 transition" />
+            <img src="${app.cover}" alt="${app.title}" loading="lazy"
+                 class="h-full w-full object-cover group-hover:scale-105 transition" />
           </div>
           <div class="p-4 flex flex-col gap-2">
             <h3 class="text-base font-semibold">${app.title}</h3>
@@ -636,19 +693,43 @@ function bindHome(){
             <div class="flex gap-2 flex-wrap">${fmtTags(app.tags)}</div>
           </div>
         </a>
-      </article>`).join('');
+      </article>`;
   };
-  search.addEventListener('input', applyFilter);
 
-  $('#btnSortAZ').onclick = () => {
-    APPS.sort((a,b)=>a.title.localeCompare(b.title));
-    applyFilter();
+  const applyFilters = () => {
+    const q = (search.value || '').toLowerCase();
+    const selected = (radios.find(r => r.checked)?.value) || 'todos';
+
+    // ordenar base
+    const sorted = [...APPS].sort((a,b) =>
+      currentSort === 'AZ' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
+    );
+
+    // filtrar por búsqueda + categoría
+    const filtered = sorted.filter(app => {
+      const cat = deriveCategory(app);
+      const matchesCat = (selected === 'todos') ? true : (cat === selected);
+      const matchesText =
+        (app.title || '').toLowerCase().includes(q) ||
+        (app.platform || '').toLowerCase().includes(q) ||
+        (app.tags || []).some(t => (t || '').toLowerCase().includes(q));
+      return matchesCat && matchesText;
+    });
+
+    grid.innerHTML = filtered.map(cardHTML).join('');
   };
-  $('#btnSortZA').onclick = () => {
-    APPS.sort((a,b)=>b.title.localeCompare(a.title));
-    applyFilter();
-  };
+
+  // eventos
+  search.addEventListener('input', applyFilters);
+  radios.forEach(r => r.addEventListener('change', applyFilters));
+
+  $('#btnSortAZ').onclick = () => { currentSort = 'AZ'; applyFilters(); };
+  $('#btnSortZA').onclick = () => { currentSort = 'ZA'; applyFilters(); };
+
+  // primera render
+  applyFilters();
 }
+
 
 function bindApp(slug){
   const app = bySlug(slug);

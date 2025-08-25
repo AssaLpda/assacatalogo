@@ -12,6 +12,39 @@
 
   <!-- Nuestros estilos -->
   <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    /* Reglas de filtrado por categoría usando sólo CSS (+ un toque de JS para setear data-filter) */
+    #app[data-filter="juegos"] .app-card:not([data-category~="juegos"]) { display: none !important; }
+    #app[data-filter="aplicaciones"] .app-card:not([data-category~="aplicaciones"]) { display: none !important; }
+    #app[data-filter="programas"] .app-card:not([data-category~="programas"]) { display: none !important; }
+    #app[data-filter="sistemas"] .app-card:not([data-category~="sistemas"]) { display: none !important; }
+
+    /* Estilos del control segmentado */
+    .segmented {
+      display: grid;
+      grid-auto-flow: column;
+      gap: .5rem;
+      padding: .5rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgb(30, 41, 59);
+      border-radius: 1rem;
+      backdrop-filter: blur(8px);
+    }
+    .segmented input { display: none; }
+    .segmented label {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .5rem .9rem; border-radius: .8rem;
+      font-weight: 600; font-size: .9rem; color: rgb(203, 213, 225);
+      cursor: pointer; white-space: nowrap;
+      transition: all .15s ease;
+    }
+    .segmented label:hover { background: rgba(51, 65, 85, .4); color: #fff; }
+    .segmented input:checked + label {
+      background: rgb(2, 132, 199); color: #fff; box-shadow: 0 0 0 2px rgba(56, 189, 248,.4) inset;
+    }
+    /* Chips scrollables en móvil */
+    .segmented-wrap { overflow-x: auto; scrollbar-width: thin; }
+  </style>
 </head>
 <body class="h-full bg-slate-950 text-slate-100">
   <!-- Header -->
@@ -23,7 +56,7 @@
       </a>
       <div class="ms-auto w-full max-w-lg">
         <label class="relative block">
-          <input id="searchInput" placeholder="Buscar apps…" 
+          <input id="searchInput" placeholder="Buscar apps…"
             class="w-full rounded-2xl bg-slate-900/70 border border-slate-800 px-4 py-2 pe-10 outline-none focus:ring-2 focus:ring-sky-500" />
           <svg viewBox="0 0 20 20" class="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 opacity-60"><path fill="currentColor" d="M12.9 14.32a8 8 0 1 1 1.41-1.41l3.39 3.39-1.41 1.41zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/></svg>
         </label>
@@ -33,7 +66,46 @@
   </header>
 
   <!-- Main -->
-  <main id="app" class="mx-auto max-w-7xl px-4 py-8">
+  <main id="app" class="mx-auto max-w-7xl px-4 py-6" data-filter="todos">
+    <!-- Barra de filtros -->
+    <section class="mb-6">
+      <div class="segmented-wrap">
+        <div class="segmented min-w-max">
+          <!-- Todos -->
+          <input type="radio" name="cat" id="f-todos" value="todos" checked>
+          <label for="f-todos" title="Mostrar todo">
+            <!-- icono -->
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z"/></svg>
+            Todos
+          </label>
+          <!-- Juegos -->
+          <input type="radio" name="cat" id="f-juegos" value="juegos">
+          <label for="f-juegos" title="Sólo juegos">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M17 6H7a5 5 0 0 0-5 5v2a5 5 0 0 0 5 5h1l2-2h4l2 2h1a5 5 0 0 0 5-5v-2a5 5 0 0 0-5-5M8.5 13A1.5 1.5 0 1 1 10 11.5A1.5 1.5 0 0 1 8.5 13M15.5 13A1.5 1.5 0 1 1 17 11.5A1.5 1.5 0 0 1 15.5 13Z"/></svg>
+            Juegos
+          </label>
+          <!-- Aplicaciones -->
+          <input type="radio" name="cat" id="f-aplicaciones" value="aplicaciones">
+          <label for="f-aplicaciones" title="Sólo aplicaciones">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v4H3zm0 5h18v4H3zm0 5h18v4H3z"/></svg>
+            Aplicaciones
+          </label>
+          <!-- Programas -->
+          <input type="radio" name="cat" id="f-programas" value="programas">
+          <label for="f-programas" title="Sólo programas (PC)">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v10H4zM2 18h20v2H2z"/></svg>
+            Programas
+          </label>
+          <!-- Sistemas operativos -->
+          <input type="radio" name="cat" id="f-sistemas" value="sistemas">
+          <label for="f-sistemas" title="Sólo sistemas operativos">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v12H4zM2 18h20v2H2z"/></svg>
+            Sistemas
+          </label>
+        </div>
+      </div>
+    </section>
+
     <!-- Vista de detalle de app -->
     <div id="app-detail" class="hidden space-y-6">
       <img id="app-image" src="" alt="" class="w-40 rounded-2xl shadow-md">
@@ -51,7 +123,7 @@
         <p id="countdown" class="text-yellow-400 font-semibold"></p>
       </div>
 
-      <a id="download-btn" target="_blank" 
+      <a id="download-btn" target="_blank"
          class="hidden rounded-2xl bg-sky-600 hover:bg-sky-500 px-6 py-3 text-lg font-bold text-white shadow-md">
          Descargar
       </a>
@@ -68,6 +140,32 @@
 
   <!-- Script principal -->
   <script src="assets/app.js"></script>
+
+  <!-- Script del filtro -->
+  <script>
+    // Set año footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Cambia el atributo data-filter en #app para que el CSS oculte/ muestre
+    const appEl = document.getElementById('app');
+    document.querySelectorAll('input[name="cat"]').forEach(r => {
+      r.addEventListener('change', () => {
+        appEl.dataset.filter = r.value; // "todos", "juegos", "aplicaciones", "programas", "sistemas"
+      });
+    });
+
+    // Si querés que app.js reaccione también, emitimos un evento opcional:
+    document.querySelectorAll('input[name="cat"]').forEach(r => {
+      r.addEventListener('change', () => {
+        const ev = new CustomEvent('catalog:filter-change', { detail: { value: r.value }});
+        window.dispatchEvent(ev);
+      });
+    });
+
+    // Nota: asegurate de que las cards tengan: class="app-card" data-category="juegos|aplicaciones|programas|sistemas"
+    // Ej: <article class="app-card" data-category="juegos"> ... </article>
+  </script>
 </body>
 </html>
+
 
