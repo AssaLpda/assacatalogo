@@ -433,6 +433,20 @@ const APPS = [
   download: 'https://stly.link/youcam',
   mirrors: []
 },
+{
+  slug: 'proton-vpn-premium-5-12-48-0',
+  title: 'Proton VPN v5.12.48.0 [Premium]',
+  platform: 'Android',
+  version: '5.12.48.0',
+  size: '49 MB',
+  cover: 'assets/img/proton.jpg',
+  tags: ['vpn', 'privacidad', 'seguridad', 'netshield', 'wireguard', 'kill switch', 'streaming'],
+  description: `Proton VPN Premium ofrece navegación segura y sin registros, cifrado de nivel militar y NetShield para bloquear anuncios y rastreadores. Incluye Secure Core (doble salto), split tunneling, kill switch y soporte para WireGuard/OpenVPN. Ideal para streaming, gaming y protegerte en redes Wi-Fi públicas.`,
+  download: 'https://srtslug.biz/8bknt',
+  mirrors: []
+},
+
+
 
 
 
