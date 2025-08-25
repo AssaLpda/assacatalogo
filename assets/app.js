@@ -30,32 +30,30 @@ const APPS = [
     download: 'https://srtslug.biz/8b9Gy',
     mirrors: []
   },
-  
   {
-  slug: 'after-effects-2025',
-  title: 'Adobe After Effects 2025',
-  platform: 'Windows',
-  version: '2025',
-  size: '2 GB',
-  cover: '/assets/img/adobe.png',
-  tags: ['edición de video', 'animación', 'adobe', 'premium'],
-  description: `Instalá Adobe After Effects 2025 y elegí la versión que más te guste para tus proyectos de video y animación.`,
-  download: 'https://srtslug.biz/AffterEffect2025',
-  mirrors: []
-},
-{
-  slug: 'spotify-mod-9-0-72-967',
-  title: 'Spotify v9.0.72.967 [MOD]',
-  platform: 'Android',
-  version: '9.0.72.967',
-  size: '50 MB',
-  cover: 'assets/img/spotify.png',
-  tags: ['música', 'streaming', 'premium', 'mod'],
-  description: `Disfrutá la versión MOD con funciones premium desbloqueadas.`,
-  download: 'https://srtslug.biz/sptfy',
-  mirrors: []
-},
-
+    slug: 'after-effects-2025',
+    title: 'Adobe After Effects 2025',
+    platform: 'Windows',
+    version: '2025',
+    size: '2 GB',
+    cover: '/assets/img/adobe.png',
+    tags: ['edición de video', 'animación', 'adobe', 'premium'],
+    description: `Instalá Adobe After Effects 2025 y elegí la versión que más te guste para tus proyectos de video y animación.`,
+    download: 'https://srtslug.biz/AffterEffect2025',
+    mirrors: []
+  },
+  {
+    slug: 'spotify-mod-9-0-72-967',
+    title: 'Spotify v9.0.72.967 [MOD]',
+    platform: 'Android',
+    version: '9.0.72.967',
+    size: '50 MB',
+    cover: 'assets/img/spotify.png',
+    tags: ['música', 'streaming', 'premium', 'mod'],
+    description: `Disfrutá la versión MOD con funciones premium desbloqueadas.`,
+    download: 'https://srtslug.biz/sptfy',
+    mirrors: []
+  },
   {
     slug: 'Whatsapp plus',
     title: 'Whatsapp plus v18.70',
@@ -260,7 +258,6 @@ const APPS = [
     download: 'https://srtslug.biz/8b9Gc',
     mirrors: []
   },
-
   {
     slug: 'windows-tiny11-lite',
     title: 'Windows Tiny11 – Versión Lite de Windows 11',
@@ -273,264 +270,247 @@ const APPS = [
     download: 'https://shrtlk.click/tn11',
     mirrors: []
   },
-
   {
-  slug: 'windows-x-lite-11',
-  title: 'Windows X Lite – Windows 11 Lite',
-  platform: 'Windows',
-  version: '11 (Lite)',
-  size: '3.15 GB',
-  cover: 'assets/img/winxlite.png', // reemplazá por tu URL si querés
-  tags: ['windows', 'lite', 'gaming', 'rendimiento', 'optimización', 'bajo-recursos'],
-  description: `Windows X Lite es una edición ultraligera de Windows 11 pensada para máximo rendimiento. Elimina bloatware, reduce servicios en segundo plano y ajusta el sistema para menor latencia, mejor uso de CPU/RAM y arranques más rápidos. Ideal para juegos, streaming, creación de contenido y PCs de bajos recursos.`,
-  download: 'https://shrtlk.click/winxlite',
-  mirrors: []
-},
-{
-  slug: 'life360-premium',
-  title: 'Life360 Premium (APK)',
-  platform: 'Android',
-  version: 'Premium',
-  size: '15 MB',
-  cover: 'assets/img/life360.jpg',
-  tags: ['familia', 'seguridad', 'gps', 'rastreo', 'alertas', 'sos'],
-  description: `Life360 es una app de seguridad familiar con seguimiento GPS en tiempo real. Creá círculos privados, definí áreas seguras y recibí alertas de llegada/salida. Incluye historial de ubicaciones, chat entre miembros, botón SOS, detección de incidentes de manejo y reportes de conducción, ideal para cuidar a tu familia y coordinar encuentros.`,
-  download: 'https://stly.link/lf360prem',
-  mirrors: []
-},
-
-{
-  slug: 'deezer-mod-8-0-40-4',
-  title: 'Deezer v8.0.40.4 [MOD Premium]',
-  platform: 'Android',
-  version: '8.0.40.4',
-  size: '47 MB',
-  cover: 'https://apkmody.com/wp-content/uploads/2022/05/Deezer-MOD-APK-cover-APKMODY-COM.jpg',
-  tags: ['música', 'streaming', 'premium', 'mod', 'offline'],
-  description: `Deezer Premium MOD te permite disfrutar de toda tu música favorita sin límites. Accedé a más de 90 millones de canciones, playlists y podcasts, con funciones premium desbloqueadas como descargas offline, audio de alta calidad, sin anuncios y saltos de pista ilimitados.`,
-  download: 'https://stly.link/dserprem',
-  mirrors: []
-},
-{
-  slug: 'adguard-premium-4-10-65',
-  title: 'AdGuard Premium v4.10.65',
-  platform: 'Android',
-  version: '4.10.65',
-  size: '60 MB',
-  cover: 'https://cdn.adtidy.org/blog/2019/03/cover_android3_0.jpg',
-  tags: ['bloqueo de anuncios', 'privacidad', 'seguridad', 'DNS', 'HTTPS', 'firewall'],
-  description: `AdGuard Premium bloquea anuncios, pop-ups y rastreadores en apps y navegadores. Ofrece filtrado HTTPS, DNS seguro, reglas por aplicación, listas personalizadas y modo sigiloso para proteger tu privacidad y reducir consumo de datos y batería. Incluye firewall y filtros avanzados para una navegación limpia.`,
-  download: 'https://stly.link/adgrdprem',
-  mirrors: []
-},
-
-{
-  slug: 'temp-mail-premium-4-01',
-  title: 'Temp Mail Premium v4.01',
-  platform: 'Android',
-  version: '4.01',
-  size: '54 MB',
-  cover: 'https://play-lh.googleusercontent.com/bZcnF_cQg7JJfzX9VaQzJqDtqyHVwT5gV4hoUd9u1FiB9Cam4wQMb8QPo58DIuZYuVs',
-  tags: ['email temporal', 'privacidad', 'antispam', 'anónimo', 'seguridad'],
-  description: `Temp Mail Premium crea correos temporales para proteger tu identidad y evitar spam. Recibí códigos de verificación y mensajes sin exponer tu email real. Funciones Premium: múltiples direcciones, mayor tiempo de vida, historial extendido, adjuntos, notificaciones push y sin anuncios.`,
-  download: 'https://stly.link/tmpmail',
-  mirrors: []
-},
-{
-  slug: 'movie-plus-10-2',
-  title: 'Movie Plus v10.2',
-  platform: 'Android',
-  version: '10.2',
-  size: '36 MB',
-  cover: 'https://apkrabi.com/uploads/2023/9/movies-plus-thumbnail.jpg',
-  tags: ['películas', 'series', 'streaming', 'hd', 'entretenimiento'],
-  description: `Movie Plus ofrece un amplio catálogo de películas y series con reproducción rápida y estable. Incluye calidad HD/Full HD, subtítulos, búsqueda por género, lista de favoritos, reproductor integrado y soporte de casting para ver en la TV.`,
-  download: 'https://stly.link/movieplus',
-  mirrors: []
-},
-{
-  slug: 'chat-smith-premium-4-0-0',
-  title: 'Chat Smith Premium v4.0.0',
-  platform: 'Android',
-  version: '4.0.0',
-  size: '85 MB',
-  cover: 'assets/img/chatgpt.jpg',
-  tags: ['IA', 'chatbot', 'voz', 'texto', 'asistente', 'gpt'],
-  description: `AI Chat es un software de Inteligencia Artificial capaz de mantener conversaciones en tiempo real por texto o voz. Basado en redes neuronales tipo GPT-4, ofrece respuestas contextuales, dictado/lectura por voz, historial, plantillas para tareas y un modo rápido para consultas frecuentes.`,
-  download: 'https://stly.link/chatsm',
-  mirrors: []
-},
-{
-  slug: 'playhub-plus-1-2-26',
-  title: 'PlayHub+ v1.2.26',
-  platform: 'Android',
-  version: '1.2.26',
-  size: '25 MB',
-  cover: 'assets/img/play.jpg',
-  tags: ['películas', 'series', 'anime', 'streaming', 'hd', 'chromecast'],
-  description: `PlayHub+ es una app para ver películas, series y anime en HD con reproducción rápida. Ofrece un amplio catálogo y posibilidad de transmitir a la TV mediante Chromecast.`,
-  download: 'https://stly.link/playhb',
-  mirrors: []
-},
-{
-  slug: 'snaptube-vip-7-41-0-74150210',
-  title: 'Snaptube VIP v7.41.0.74150210',
-  platform: 'Android',
-  version: '7.41.0.74150210',
-  size: '26 MB',
-  cover: 'assets/img/snap.jpg',
-  tags: ['video', 'música', 'descargas', 'youtube', 'facebook', 'android'],
-  description: `Snaptube VIP permite ver y descargar videos y música desde YouTube, Facebook y otras plataformas. Incluye buscador integrado, conversión a MP3/MP4, diferentes resoluciones, gestor de descargas y reproducción en segundo plano.`,
-  download: 'https://stly.link/snapt',
-  mirrors: []
-},
-{
-  slug: 'photoroom-pro-2025-26-03',
-  title: 'PhotoRoom Pro v2025.26.03',
-  platform: 'Android',
-  version: '2025.26.03',
-  size: '74 MB',
-  cover: 'assets/img/photo.jpg',
-  tags: ['fotos', 'edición', 'remove bg', 'ecommerce', 'diseño'],
-  description: `Con un toque eliminá el fondo y creá imágenes limpias para productos o retratos. Elegí fondo blanco o personalizado, corregí iluminación, agregá texto/logos, pegatinas y armá collages. Ideal para catálogos, redes y tiendas online.`,
-  download: 'https://stly.link/photorm',
-  mirrors: []
-},
-{
-  slug: 'gta-san-andreas-2-11',
-  title: 'GTA San Andreas – Última versión v2.11',
-  platform: 'Android',
-  version: '2.11',
-  size: '2.6 GB',
-  cover: 'https://gtasanandreasapk.org/wp-content/uploads/2024/09/Gta-san-andreas-mod-apk-download.webp',
-  tags: ['juego', 'acción', 'mundo abierto', 'clásico', 'offline'],
-  description: `Vive la historia de CJ en un mundo abierto enorme con misiones principales y secundarias, conducción, combate y personalización. Optimizado para móviles con controles táctiles y soporte para jugar sin conexión.`,
-  download: 'https://srtslug.biz/gtasanand',
-  mirrors: []
-},
-{
-  slug: 'subway-surfers-mod-3-48-3',
-  title: 'Subway Surfers v3.48.3 [MOD]',
-  platform: 'Android',
-  version: '3.48.3',
-  size: '153 MB',
-  cover: 'https://i.ytimg.com/vi/aEnMi1RM8ZI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCrzflpkVoHCFJhyt5apr2dPxvSog',
-  tags: ['juego', 'arcade', 'runner', 'mod', 'offline'],
-  description: `Corre por vías y azoteas esquivando trenes y obstáculos en este clásico endless runner. La versión MOD incluye ventajas/desbloqueos para progresar más rápido, eventos por temporadas, misiones diarias y personalización de tablas y personajes.`,
-  download: 'https://stly.link/subwysurf',
-  mirrors: []
-},
-
-{
-  slug: 'youcam-perfect-6-8-0',
-  title: 'YouCam Perfect v6.8.0',
-  platform: 'Android',
-  version: '6.8.0',
-  size: '35 MB',
-  cover: 'https://media.imgcdn.org/repo/2023/03/youcam-perfect-photo-editor/youcam-perfect-photo-editor-free-download.jpg',
-  tags: ['fotos', 'edición', 'selfie', 'filtros', 'retoque', 'belleza'],
-  description: `Editor de fotos para selfies con herramientas de retoque rápido: suavizado de piel, eliminación de imperfecciones, blanqueo dental, remodelado sutil, recorte y desenfoque de fondo, efectos, filtros y collages. Ideal para crear retratos profesionales en segundos.`,
-  download: 'https://stly.link/youcam',
-  mirrors: []
-},
-{
-  slug: 'proton-vpn-premium-5-12-48-0',
-  title: 'Proton VPN v5.12.48.0 [Premium]',
-  platform: 'Android',
-  version: '5.12.48.0',
-  size: '49 MB',
-  cover: 'assets/img/proton.jpg',
-  tags: ['vpn', 'privacidad', 'seguridad', 'netshield', 'wireguard', 'kill switch', 'streaming'],
-  description: `Proton VPN Premium ofrece navegación segura y sin registros, cifrado de nivel militar y NetShield para bloquear anuncios y rastreadores. Incluye Secure Core (doble salto), split tunneling, kill switch y soporte para WireGuard/OpenVPN. Ideal para streaming, gaming y protegerte en redes Wi-Fi públicas.`,
-  download: 'https://srtslug.biz/8bknt',
-  mirrors: []
-},
-{
-  slug: 'pvz-2-mod-9-9-2',
-  title: 'Plants vs. Zombies 2 v9.9.2 [MOD]',
-  platform: 'Android',
-  version: '9.9.2',
-  size: '30 MB',
-  cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-ScHESNYKXuUZ9aJleq1pbAsgGY56EKnZQ&s',
-  tags: ['juego', 'tower defense', 'estrategia', 'mod', 'offline', 'clásico'],
-  description: `Defendé tu jardín en el clásico tower defense con plantas, poderes y mundos temáticos. La edición MOD suele incluir ventajas/desbloqueos para acelerar la progresión (puede variar según el build). Ideal para partidas rápidas offline y completar eventos por tiempo.`,
-  download: 'https://ranoz.gg/file/6BWd4Q7q',
-  mirrors: []
-},
-{
-  slug: 'tele-latino-4-11-5',
-  title: 'Tele Latino v4.11.5 Movil',
-  platform: 'Android',
-  version: '4.11.5',
-  size: '40 MB',
-  cover: 'https://content-hub.wlp.app/vpn/wp-content/uploads/sites/2/2024/06/tela-latino-cuenta-completa-1mes-e1718293663105.jpg',
-  tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming'],
-  description: `App de IPTV con TV en vivo, películas y series enfocada en contenido latino. Ofrece reproducción rápida en HD, servidores estables, buscador, favoritos, guía/EPG, subtítulos y soporte para Chromecast.`,
-  download: 'https://stly.link/telelatmobile',
-  mirrors: []
-},
-
-{
-  slug: 'tele-latino-tv',
-  title: 'Tele Latino – Versión TV',
-  platform: 'Android/TV',
-  version: 'TV',
-  size: '35 MB',
-  cover: 'https://akyhay.com/wp-content/uploads/2022/07/tele-latino.jpg',
-  tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming', 'android tv'],
-  description: `Edición optimizada para Android TV y TV Box. Interfaz para control remoto, navegación por categorías, guía/EPG, búsqueda, favoritos y reproducción estable en HD/Full HD con subtítulos. Ideal para ver canales latinos, películas y series directamente en la TV.`,
-  download: 'https://stly.link/telelatTV',
-  mirrors: []
-},
-{
-  slug: 'capcut-premium-15-2-0',
-  title: 'CapCut v15.2.0 [Premium]',
-  platform: 'Android',
-  version: '15.2.0',
-  size: '285 MB',
-  cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ_9Zwf08iY6UtBYcEtYPwmzHpmZrLhgNETQ&s',
-  tags: ['video', 'edición', 'plantillas', 'transiciones', '4k', 'chroma key', 'captions', 'velocidad'],
-  description: `Editor de video completo con plantillas, efectos, transiciones y filtros. Soporta exportación en HD/4K, edición por capas, keyframes, cámara lenta/velocidad, eliminación de fondo (chroma), auto-subtítulos y sincronización con música. Versión Premium sin marcas de agua y con recursos desbloqueados.`,
-  download: 'https://stly.link/capcuttt',
-  mirrors: []
-},
-{
-  slug: 'picsart-premium-28-2-8',
-  title: 'Picsart v28.2.8 [Premium]',
-  platform: 'Android',
-  version: '28.2.8',
-  size: '82 MB',
-  cover: 'https://shop.aedigi.com/wp-content/uploads/tai-khoan-picsart-pro-scaled.png',
-  tags: ['fotos', 'edición', 'filtros', 'efectos', 'collage', 'IA'],
-  description: `Editor todo en uno para fotos y videos con filtros, efectos, stickers, collages, texto y pinceles. Incluye herramientas de IA: eliminación de fondo/objetos, retoque automático, estilos “Magic” y plantillas premium. Exportá en alta calidad sin marca de agua.`,
-  download: 'https://stfly.vip/picpro',
-  mirrors: []
-},
-{
-  slug: 'ppsspp-gold-1-19-3-premium',
-  title: 'PPSSPP Gold v1.19.3 [Premium]',
-  platform: 'Android',
-  version: '1.19.3',
-  size: '31 MB',
-  cover: 'https://apkomtk.com/wp-content/uploads/2025/04/PPSSPP-Gold-PSP-emulator-APK.jpg',
-  tags: ['emulador', 'psp', 'juegos', '60fps', 'save states', 'gamepad', 'vulkan'],
-  description: `Emulador PSP de alto rendimiento para Android con amplia compatibilidad. Ofrece escalado de resolución, filtros, control táctil personalizable, soporte para gamepad, guardado rápido (save states), carga de texturas y motores Vulkan/OpenGL para mayor fluidez a 60 FPS.`,
-  download: 'https://stfly.vip/ppsspp',
-  mirrors: []
-},
-
-
-
-
-
-
-
-
-
-
-
+    slug: 'windows-x-lite-11',
+    title: 'Windows X Lite – Windows 11 Lite',
+    platform: 'Windows',
+    version: '11 (Lite)',
+    size: '3.15 GB',
+    cover: 'assets/img/winxlite.png',
+    tags: ['windows', 'lite', 'gaming', 'rendimiento', 'optimización', 'bajo-recursos'],
+    description: `Windows X Lite es una edición ultraligera de Windows 11 pensada para máximo rendimiento. Elimina bloatware, reduce servicios en segundo plano y ajusta el sistema para menor latencia, mejor uso de CPU/RAM y arranques más rápidos. Ideal para juegos, streaming, creación de contenido y PCs de bajos recursos.`,
+    download: 'https://shrtlk.click/winxlite',
+    mirrors: []
+  },
+  {
+    slug: 'life360-premium',
+    title: 'Life360 Premium (APK)',
+    platform: 'Android',
+    version: 'Premium',
+    size: '15 MB',
+    cover: 'assets/img/life360.jpg',
+    tags: ['familia', 'seguridad', 'gps', 'rastreo', 'alertas', 'sos'],
+    description: `Life360 es una app de seguridad familiar con seguimiento GPS en tiempo real. Creá círculos privados, definí áreas seguras y recibí alertas de llegada/salida. Incluye historial de ubicaciones, chat entre miembros, botón SOS, detección de incidentes de manejo y reportes de conducción, ideal para cuidar a tu familia y coordinar encuentros.`,
+    download: 'https://stly.link/lf360prem',
+    mirrors: []
+  },
+  {
+    slug: 'deezer-mod-8-0-40-4',
+    title: 'Deezer v8.0.40.4 [MOD Premium]',
+    platform: 'Android',
+    version: '8.0.40.4',
+    size: '47 MB',
+    cover: 'https://apkmody.com/wp-content/uploads/2022/05/Deezer-MOD-APK-cover-APKMODY-COM.jpg',
+    tags: ['música', 'streaming', 'premium', 'mod', 'offline'],
+    description: `Deezer Premium MOD te permite disfrutar de toda tu música favorita sin límites. Accedé a más de 90 millones de canciones, playlists y podcasts, con funciones premium desbloqueadas como descargas offline, audio de alta calidad, sin anuncios y saltos de pista ilimitados.`,
+    download: 'https://stly.link/dserprem',
+    mirrors: []
+  },
+  {
+    slug: 'adguard-premium-4-10-65',
+    title: 'AdGuard Premium v4.10.65',
+    platform: 'Android',
+    version: '4.10.65',
+    size: '60 MB',
+    cover: 'https://cdn.adtidy.org/blog/2019/03/cover_android3_0.jpg',
+    tags: ['bloqueo de anuncios', 'privacidad', 'seguridad', 'DNS', 'HTTPS', 'firewall'],
+    description: `AdGuard Premium bloquea anuncios, pop-ups y rastreadores en apps y navegadores. Ofrece filtrado HTTPS, DNS seguro, reglas por aplicación, listas personalizadas y modo sigiloso para proteger tu privacidad y reducir consumo de datos y batería. Incluye firewall y filtros avanzados para una navegación limpia.`,
+    download: 'https://stly.link/adgrdprem',
+    mirrors: []
+  },
+  {
+    slug: 'temp-mail-premium-4-01',
+    title: 'Temp Mail Premium v4.01',
+    platform: 'Android',
+    version: '4.01',
+    size: '54 MB',
+    cover: 'https://play-lh.googleusercontent.com/bZcnF_cQg7JJfzX9VaQzJqDtqyHVwT5gV4hoUd9u1FiB9Cam4wQMb8QPo58DIuZYuVs',
+    tags: ['email temporal', 'privacidad', 'antispam', 'anónimo', 'seguridad'],
+    description: `Temp Mail Premium crea correos temporales para proteger tu identidad y evitar spam. Recibí códigos de verificación y mensajes sin exponer tu email real. Funciones Premium: múltiples direcciones, mayor tiempo de vida, historial extendido, adjuntos, notificaciones push y sin anuncios.`,
+    download: 'https://stly.link/tmpmail',
+    mirrors: []
+  },
+  {
+    slug: 'movie-plus-10-2',
+    title: 'Movie Plus v10.2',
+    platform: 'Android',
+    version: '10.2',
+    size: '36 MB',
+    cover: 'https://apkrabi.com/uploads/2023/9/movies-plus-thumbnail.jpg',
+    tags: ['películas', 'series', 'streaming', 'hd', 'entretenimiento'],
+    description: `Movie Plus ofrece un amplio catálogo de películas y series con reproducción rápida y estable. Incluye calidad HD/Full HD, subtítulos, búsqueda por género, lista de favoritos, reproductor integrado y soporte de casting para ver en la TV.`,
+    download: 'https://stly.link/movieplus',
+    mirrors: []
+  },
+  {
+    slug: 'chat-smith-premium-4-0-0',
+    title: 'Chat Smith Premium v4.0.0',
+    platform: 'Android',
+    version: '4.0.0',
+    size: '85 MB',
+    cover: 'assets/img/chatgpt.jpg',
+    tags: ['IA', 'chatbot', 'voz', 'texto', 'asistente', 'gpt'],
+    description: `AI Chat es un software de Inteligencia Artificial capaz de mantener conversaciones en tiempo real por texto o voz. Basado en redes neuronales tipo GPT-4, ofrece respuestas contextuales, dictado/lectura por voz, historial, plantillas para tareas y un modo rápido para consultas frecuentes.`,
+    download: 'https://stly.link/chatsm',
+    mirrors: []
+  },
+  {
+    slug: 'playhub-plus-1-2-26',
+    title: 'PlayHub+ v1.2.26',
+    platform: 'Android',
+    version: '1.2.26',
+    size: '25 MB',
+    cover: 'assets/img/play.jpg',
+    tags: ['películas', 'series', 'anime', 'streaming', 'hd', 'chromecast'],
+    description: `PlayHub+ es una app para ver películas, series y anime en HD con reproducción rápida. Ofrece un amplio catálogo y posibilidad de transmitir a la TV mediante Chromecast.`,
+    download: 'https://stly.link/playhb',
+    mirrors: []
+  },
+  {
+    slug: 'snaptube-vip-7-41-0-74150210',
+    title: 'Snaptube VIP v7.41.0.74150210',
+    platform: 'Android',
+    version: '7.41.0.74150210',
+    size: '26 MB',
+    cover: 'assets/img/snap.jpg',
+    tags: ['video', 'música', 'descargas', 'youtube', 'facebook', 'android'],
+    description: `Snaptube VIP permite ver y descargar videos y música desde YouTube, Facebook y otras plataformas. Incluye buscador integrado, conversión a MP3/MP4, diferentes resoluciones, gestor de descargas y reproducción en segundo plano.`,
+    download: 'https://stly.link/snapt',
+    mirrors: []
+  },
+  {
+    slug: 'photoroom-pro-2025-26-03',
+    title: 'PhotoRoom Pro v2025.26.03',
+    platform: 'Android',
+    version: '2025.26.03',
+    size: '74 MB',
+    cover: 'assets/img/photo.jpg',
+    tags: ['fotos', 'edición', 'remove bg', 'ecommerce', 'diseño'],
+    description: `Con un toque eliminá el fondo y creá imágenes limpias para productos o retratos. Elegí fondo blanco o personalizado, corregí iluminación, agregá texto/logos, pegatinas y armá collages. Ideal para catálogos, redes y tiendas online.`,
+    download: 'https://stly.link/photorm',
+    mirrors: []
+  },
+  {
+    slug: 'gta-san-andreas-2-11',
+    title: 'GTA San Andreas – Última versión v2.11',
+    platform: 'Android',
+    version: '2.11',
+    size: '2.6 GB',
+    cover: 'https://gtasanandreasapk.org/wp-content/uploads/2024/09/Gta-san-andreas-mod-apk-download.webp',
+    tags: ['juego', 'acción', 'mundo abierto', 'clásico', 'offline'],
+    description: `Vive la historia de CJ en un mundo abierto enorme con misiones principales y secundarias, conducción, combate y personalización. Optimizado para móviles con controles táctiles y soporte para jugar sin conexión.`,
+    download: 'https://srtslug.biz/gtasanand',
+    mirrors: []
+  },
+  {
+    slug: 'subway-surfers-mod-3-48-3',
+    title: 'Subway Surfers v3.48.3 [MOD]',
+    platform: 'Android',
+    version: '3.48.3',
+    size: '153 MB',
+    cover: 'https://i.ytimg.com/vi/aEnMi1RM8ZI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCrzflpkVoHCFJhyt5apr2dPxvSog',
+    tags: ['juego', 'arcade', 'runner', 'mod', 'offline'],
+    description: `Corre por vías y azoteas esquivando trenes y obstáculos en este clásico endless runner. La versión MOD incluye ventajas/desbloqueos para progresar más rápido, eventos por temporadas, misiones diarias y personalización de tablas y personajes.`,
+    download: 'https://stly.link/subwysurf',
+    mirrors: []
+  },
+  {
+    slug: 'youcam-perfect-6-8-0',
+    title: 'YouCam Perfect v6.8.0',
+    platform: 'Android',
+    version: '6.8.0',
+    size: '35 MB',
+    cover: 'https://media.imgcdn.org/repo/2023/03/youcam-perfect-photo-editor/youcam-perfect-photo-editor-free-download.jpg',
+    tags: ['fotos', 'edición', 'selfie', 'filtros', 'retoque', 'belleza'],
+    description: `Editor de fotos para selfies con herramientas de retoque rápido: suavizado de piel, eliminación de imperfecciones, blanqueo dental, remodelado sutil, recorte y desenfoque de fondo, efectos, filtros y collages. Ideal para crear retratos profesionales en segundos.`,
+    download: 'https://stly.link/youcam',
+    mirrors: []
+  },
+  {
+    slug: 'proton-vpn-premium-5-12-48-0',
+    title: 'Proton VPN v5.12.48.0 [Premium]',
+    platform: 'Android',
+    version: '5.12.48.0',
+    size: '49 MB',
+    cover: 'assets/img/proton.jpg',
+    tags: ['vpn', 'privacidad', 'seguridad', 'netshield', 'wireguard', 'kill switch', 'streaming'],
+    description: `Proton VPN Premium ofrece navegación segura y sin registros, cifrado de nivel militar y NetShield para bloquear anuncios y rastreadores. Incluye Secure Core (doble salto), split tunneling, kill switch y soporte para WireGuard/OpenVPN. Ideal para streaming, gaming y protegerte en redes Wi-Fi públicas.`,
+    download: 'https://srtslug.biz/8bknt',
+    mirrors: []
+  },
+  {
+    slug: 'pvz-2-mod-9-9-2',
+    title: 'Plants vs. Zombies 2 v9.9.2 [MOD]',
+    platform: 'Android',
+    version: '9.9.2',
+    size: '30 MB',
+    cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-ScHESNYKXuUZ9aJleq1pbAsgGY56EKnZQ&s',
+    tags: ['juego', 'tower defense', 'estrategia', 'mod', 'offline', 'clásico'],
+    description: `Defendé tu jardín en el clásico tower defense con plantas, poderes y mundos temáticos. La edición MOD suele incluir ventajas/desbloqueos para acelerar la progresión (puede variar según el build). Ideal para partidas rápidas offline y completar eventos por tiempo.`,
+    download: 'https://ranoz.gg/file/6BWd4Q7q',
+    mirrors: []
+  },
+  {
+    slug: 'tele-latino-4-11-5',
+    title: 'Tele Latino v4.11.5 Movil',
+    platform: 'Android',
+    version: '4.11.5',
+    size: '40 MB',
+    cover: 'https://content-hub.wlp.app/vpn/wp-content/uploads/sites/2/2024/06/tela-latino-cuenta-completa-1mes-e1718293663105.jpg',
+    tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming'],
+    description: `App de IPTV con TV en vivo, películas y series enfocada en contenido latino. Ofrece reproducción rápida en HD, servidores estables, buscador, favoritos, guía/EPG, subtítulos y soporte para Chromecast.`,
+    download: 'https://stly.link/telelatmobile',
+    mirrors: []
+  },
+  {
+    slug: 'tele-latino-tv',
+    title: 'Tele Latino – Versión TV',
+    platform: 'Android/TV',
+    version: 'TV',
+    size: '35 MB',
+    cover: 'https://akyhay.com/wp-content/uploads/2022/07/tele-latino.jpg',
+    tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming', 'android tv'],
+    description: `Edición optimizada para Android TV y TV Box. Interfaz para control remoto, navegación por categorías, guía/EPG, búsqueda, favoritos y reproducción estable en HD/Full HD con subtítulos. Ideal para ver canales latinos, películas y series directamente en la TV.`,
+    download: 'https://stly.link/telelatTV',
+    mirrors: []
+  },
+  {
+    slug: 'capcut-premium-15-2-0',
+    title: 'CapCut v15.2.0 [Premium]',
+    platform: 'Android',
+    version: '15.2.0',
+    size: '285 MB',
+    cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ_9Zwf08iY6UtBYcEtYPwmzHpmZrLhgNETQ&s',
+    tags: ['video', 'edición', 'plantillas', 'transiciones', '4k', 'chroma key', 'captions', 'velocidad'],
+    description: `Editor de video completo con plantillas, efectos, transiciones y filtros. Soporta exportación en HD/4K, edición por capas, keyframes, cámara lenta/velocidad, eliminación de fondo (chroma), auto-subtítulos y sincronización con música. Versión Premium sin marcas de agua y con recursos desbloqueados.`,
+    download: 'https://stly.link/capcuttt',
+    mirrors: []
+  },
+  {
+    slug: 'picsart-premium-28-2-8',
+    title: 'Picsart v28.2.8 [Premium]',
+    platform: 'Android',
+    version: '28.2.8',
+    size: '82 MB',
+    cover: 'https://shop.aedigi.com/wp-content/uploads/tai-khoan-picsart-pro-scaled.png',
+    tags: ['fotos', 'edición', 'filtros', 'efectos', 'collage', 'IA'],
+    description: `Editor todo en uno para fotos y videos con filtros, efectos, stickers, collages, texto y pinceles. Incluye herramientas de IA: eliminación de fondo/objetos, retoque automático, estilos “Magic” y plantillas premium. Exportá en alta calidad sin marca de agua.`,
+    download: 'https://stfly.vip/picpro',
+    mirrors: []
+  },
+  {
+    slug: 'ppsspp-gold-1-19-3-premium',
+    title: 'PPSSPP Gold v1.19.3 [Premium]',
+    platform: 'Android',
+    version: '1.19.3',
+    size: '31 MB',
+    cover: 'https://apkomtk.com/wp-content/uploads/2025/04/PPSSPP-Gold-PSP-emulator-APK.jpg',
+    tags: ['emulador', 'psp', 'juegos', '60fps', 'save states', 'gamepad', 'vulkan'],
+    description: `Emulador PSP de alto rendimiento para Android con amplia compatibilidad. Ofrece escalado de resolución, filtros, control táctil personalizable, soporte para gamepad, guardado rápido (save states), carga de texturas y motores Vulkan/OpenGL para mayor fluidez a 60 FPS.`,
+    download: 'https://stfly.vip/ppsspp',
+    mirrors: []
+  },
 ];
-
 
 // ==========================
 // UTILIDADES
@@ -558,7 +538,7 @@ function HomeView() {
     <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div>
         <h1 class="text-2xl md:text-3xl font-bold tracking-tight">Todas las aplicaciones</h1>
-        <p class="text-slate-400">${APPS.length} elementos</p>
+        <p class="text-slate-400"><span id="resultCount">${APPS.length}</span> elementos</p>
       </div>
 
       <div class="flex flex-col gap-3 md:items-end">
@@ -605,15 +585,20 @@ function HomeView() {
     </div>
   `;
 
-  // Contenedor del grid (se rellena en bindHome)
+  // Contenedor del grid + Paginador
   return `
     <section class="space-y-6">
       ${controls}
       <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+
+      <nav class="flex items-center justify-center gap-3">
+        <button id="prevPage" class="rounded-xl bg-slate-800 hover:bg-slate-700 disabled:opacity-50 px-4 py-2 text-sm font-semibold">Anterior</button>
+        <span id="pageInfo" class="text-slate-300 text-sm min-w-32 text-center">0-0 de 0</span>
+        <button id="nextPage" class="rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-50 px-4 py-2 text-sm font-semibold">Siguiente</button>
+      </nav>
     </section>
   `;
 }
-
 
 function AppView(slug) {
   const app = bySlug(slug);
@@ -708,7 +693,6 @@ function deriveCategory(app) {
   return 'aplicaciones';
 }
 
-
 // ==========================
 // RENDER
 // ==========================
@@ -729,14 +713,28 @@ function render(){
 }
 
 // ==========================
-// BINDINGS
+// BINDINGS (HOME) – con paginación
 // ==========================
 function bindHome() {
   const grid = document.getElementById('grid');
   const search = document.getElementById('searchInput');
   const radios = Array.from(document.querySelectorAll('input[name="cat"]'));
+  const resultCount = document.getElementById('resultCount');
+
+  // NEW: paginador
+  const prevPageBtn = document.getElementById('prevPage');
+  const nextPageBtn = document.getElementById('nextPage');
+  const pageInfo = document.getElementById('pageInfo');
 
   let currentSort = 'AZ'; // 'AZ' | 'ZA'
+  const state = {
+    page: 1,
+    perPage: 8, // <<--- Cambiá a 6 si preferís 6 por página
+    filtered: []
+  };
+
+  const normalize = (s) =>
+    (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 
   const cardHTML = (app) => {
     const cat = deriveCategory(app);
@@ -757,8 +755,8 @@ function bindHome() {
       </article>`;
   };
 
-  const applyFilters = () => {
-    const q = (search.value || '').toLowerCase();
+  function applyFilters() {
+    const q = normalize(search?.value || '');
     const selected = (radios.find(r => r.checked)?.value) || 'todos';
 
     // ordenar base
@@ -767,31 +765,65 @@ function bindHome() {
     );
 
     // filtrar por búsqueda + categoría
-    const filtered = sorted.filter(app => {
+    state.filtered = sorted.filter(app => {
       const cat = deriveCategory(app);
       const matchesCat = (selected === 'todos') ? true : (cat === selected);
       const matchesText =
-        (app.title || '').toLowerCase().includes(q) ||
-        (app.platform || '').toLowerCase().includes(q) ||
-        (app.tags || []).some(t => (t || '').toLowerCase().includes(q));
+        normalize(app.title).includes(q) ||
+        normalize(app.platform).includes(q) ||
+        (app.tags || []).some(t => normalize(t).includes(q));
       return matchesCat && matchesText;
     });
 
-    grid.innerHTML = filtered.map(cardHTML).join('');
-  };
+    // reset a primera página al cambiar filtros/búsqueda/orden
+    state.page = 1;
 
-  // eventos
-  search.addEventListener('input', applyFilters);
+    // actualizar contador
+    if (resultCount) resultCount.textContent = state.filtered.length;
+
+    renderPage();
+  }
+
+  function renderPage() {
+    const total = state.filtered.length;
+    const totalPages = Math.max(1, Math.ceil(total / state.perPage));
+    if (state.page > totalPages) state.page = totalPages;
+
+    const start = (state.page - 1) * state.perPage;
+    const end = start + state.perPage;
+
+    grid.innerHTML = state.filtered.slice(start, end).map(cardHTML).join('');
+
+    const from = total ? start + 1 : 0;
+    const to = Math.min(end, total);
+
+    if (pageInfo) pageInfo.textContent = `${from}-${to} de ${total}`;
+    if (prevPageBtn) prevPageBtn.disabled = state.page <= 1 || total === 0;
+    if (nextPageBtn) nextPageBtn.disabled = state.page >= totalPages || total === 0;
+  }
+
+  // eventos de búsqueda / filtros / orden
+  search?.addEventListener('input', applyFilters);
   radios.forEach(r => r.addEventListener('change', applyFilters));
 
   $('#btnSortAZ').onclick = () => { currentSort = 'AZ'; applyFilters(); };
   $('#btnSortZA').onclick = () => { currentSort = 'ZA'; applyFilters(); };
 
-  // primera render
+  // eventos de paginación
+  prevPageBtn?.addEventListener('click', () => {
+    if (state.page > 1) { state.page--; renderPage(); }
+  });
+  nextPageBtn?.addEventListener('click', () => {
+    state.page++; renderPage();
+  });
+
+  // primera render con filtros por defecto
   applyFilters();
 }
 
-
+// ==========================
+// BINDINGS (APP)
+// ==========================
 function bindApp(slug){
   const app = bySlug(slug);
   if (!app) return;
@@ -854,4 +886,3 @@ function bindApp(slug){
 // ==========================
 window.addEventListener('hashchange', render);
 window.addEventListener('DOMContentLoaded', render);
-
