@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ── SEO base -->
+  <title>Emuladores oficiales + ROMs por consola | Sala Retro</title>
+  <meta name="description" content="Descargá emuladores oficiales (PS, Xbox, Nintendo, SEGA, PC) y encontrá catálogos de ROMs por consola. Guía legal y enlaces verificados." />
+  <link rel="canonical" href="https://assaapps.vercel.app//"/>
+  <link rel="alternate" hreflang="es" href="https://assaapps.vercel.app//"/>
+  <link rel="alternate" hreflang="x-default" href="https://assaapps.vercel.app//"/>
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <meta name="theme-color" content="#0B1220"/>
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:locale" content="es_AR"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Emuladores oficiales + ROMs por consola | Sala Retro"/>
+  <meta property="og:description" content="Descargá emuladores oficiales y encontrá catálogos de ROMs por consola. Todo en un solo lugar."/>
+  <meta property="og:url" content="https://assaapps.vercel.app//"/>
+  <meta property="og:site_name" content="Sala Retro"/>
+  <meta property="og:image" content="https://tudominio.com/og-image.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Emuladores oficiales + ROMs por consola | Sala Retro"/>
+  <meta name="twitter:description" content="Descargá emuladores oficiales y encontrá catálogos de ROMs por consola. Todo en un solo lugar."/>
+  <meta name="twitter:image" content="https://tudominio.com/og-image.jpg"/>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Ctext y='0.9em' font-size='200'%3E🎮%3C/text%3E%3C/svg%3E">
+
+  <!-- Estilos originales -->
+  <style>
+    :root{
+      --bg:#0b0f19; --card:#121726; --muted:#94a3b8; --fg:#e5e7eb; --brand:#60a5fa; --accent:#a78bfa; --ok:#34d399; --warn:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:radial-gradient(1200px 600px at 20% -10%, #0f172a 0%, #0b0f19 50%, #090d17 100%);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,'Helvetica Neue',Arial,sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{padding:48px 20px 24px;max-width:1100px;margin:auto;text-align:center}
+    .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid #1e293b;background:#0b1220;padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted)}
+    .title{font-weight:800;letter-spacing:-0.02em;margin:16px 0 12px;font-size:clamp(28px,4.5vw,48px)}
+    .sub{color:var(--muted);max-width:800px;margin:0 auto 18px}
+    .legal{font-size:12px;color:#94a3b8a6;margin-top:10px}
+    .toolbar{max-width:1100px;margin:18px auto 30px;padding:0 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center}
+    .search{flex:1 1 320px;display:flex;align-items:center;gap:10px;background:#0c1323;border:1px solid #1f2937;border-radius:16px;padding:10px 14px}
+    .search input{flex:1;background:transparent;border:0;outline:none;color:var(--fg);font-size:15px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{border:1px solid #263245;background:#0e162a;padding:8px 12px;border-radius:999px;font-size:12px;color:#cfe0ffb0;cursor:pointer}
+    .chip.active{border-color:#2b5ad6;color:#cfe0ff;background:#132347}
+    main{max-width:1100px;margin:0 auto;padding:0 20px 80px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent 60%),var(--card);border:1px solid #1f2937;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s ease, box-shadow .15s ease}
+    .card:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .thumb{aspect-ratio:16/9;background:#0a1020;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.05)}
+    .card .body{padding:14px}
+    .label{font-size:12px;letter-spacing:.08em;color:#8ea3c7;text-transform:uppercase;margin-bottom:6px}
+    .h4{margin:0 0 6px;font-weight:700;font-size:17px}
+    .muted{color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:8px;margin-top:12px}
+    .btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #334155;background:#0f172a;border-radius:12px;padding:10px 12px;color:#cdd8ee;font-weight:600;font-size:14px;cursor:pointer}
+    .btn:hover{background:#101a33}
+    .btn.primary{border-color:#2563eb;background:linear-gradient(180deg,#1d4ed8,#1e40af);color:white}
+    .btn.primary:hover{filter:brightness(1.05)}
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(3,6,15,.75);backdrop-filter:saturate(1.2) blur(6px);display:none;align-items:center;justify-content:center;padding:24px}
+    .modal.open{display:flex}
+    .sheet{max-width:760px;width:100%;background:var(--card);border:1px solid #243043;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .sheet header{padding:18px 18px 0;text-align:left}
+    .sheet .cover{aspect-ratio:16/7;background:#0c1323;overflow:hidden}
+    .sheet .cover img{width:100%;height:100%;object-fit:cover}
+    .sheet .content{padding:16px 18px 22px}
+    .cols{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:850px){ .cols{grid-template-columns:1.15fr .85fr} }
+    .list{background:#0b1220;border:1px solid #1f2a3b;border-radius:14px;padding:12px}
+    .list h5{margin:4px 0 10px;font-size:13px;letter-spacing:.06em;color:#9db2d9;text-transform:uppercase}
+    .list a{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:10px;border:1px solid transparent}
+    .list a:hover{background:#0d1530;border-color:#223257;text-decoration:none}
+    .pill{font-size:11px;padding:4px 8px;border-radius:999px;background:#132347;border:1px solid #29488f;color:#cfe0ff}
+    .danger{color:#fecaca}
+    footer{max-width:1100px;margin:30px auto 60px;padding:0 20px;color:#9fb2cf}
+    code.small{font-size:12px;color:#9fb2cf;background:#0c1323;border:1px solid #1f2a3b;padding:2px 6px;border-radius:6px}
+  </style>
+
+  <!-- JSON-LD estático (Organization + Website + CollectionPage) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Sala Retro",
+    "url":"https://assaapps.vercel.app//",
+    "logo":"https://assaapps.vercel.app/logo.png",
+    "sameAs":[]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "url":"https://assaapps.vercel.app//",
+    "name":"Sala Retro — Emuladores y ROMs",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://assaapps.vercel.app//?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CollectionPage",
+    "name":"Catálogo de emuladores oficiales y ROMs por consola | Sala Retro",
+    "url":"https://assaapps.vercel.app/",
+    "description":"Lista de consolas con descarga de emuladores oficiales y enlaces a ROMs por consola.",
+    "about":["emuladores","roms","playstation","xbox","nintendo","sega","pc"]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="badge" aria-label="Sala Retro">🎮 Sala Retro · Emuladores & ROMs</div>
+    <h1 class="title">Todo en un lugar: <span style="background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent">emuladores oficiales</span> + <span style="background:linear-gradient(90deg,#34d399,#60a5fa);-webkit-background-clip:text;background-clip:text;color:transparent">catálogo de ROMs</span></h1>
+    <p class="sub">Descargá emuladores desde sus sitios oficiales y navegá el catálogo de ROMs por consola en ROMSFUN. Los ROMs se descargan por fuera; acá solo centralizamos enlaces.</p>
+    <p class="legal">⚠️ <strong>Nota legal:</strong> usá ROMs únicamente de juegos que poseas legalmente, homebrew o abandonware permitido en tu jurisdicción. Este sitio no aloja ROMs.</p>
+  </header>
+
+  <div class="toolbar" role="region" aria-label="Buscador y filtros">
+    <form class="search" role="search" action="/" method="get">
+      🔎
+      <input id="q" name="q" placeholder="Buscar consola (ej: PS2, SNES, Dreamcast, 3DS…)" aria-label="Buscar consola" />
+    </form>
+    <div class="filters" id="filters" role="tablist" aria-label="Filtrar por familia"></div>
+  </div>
+
+  <main>
+    <section class="grid" id="grid" aria-label="Listado de consolas"></section>
+  </main>
+
+  <div class="modal" id="modal" aria-modal="true" role="dialog" aria-labelledby="mTitle" aria-describedby="mDesc">
+    <div class="sheet">
+      <div class="cover"><img id="mImg" alt="" loading="lazy" decoding="async"></div>
+      <header>
+        <div class="label" id="mFamily">Consola</div>
+        <h2 class="title" style="font-size:28px;margin:8px 0 6px" id="mTitle">—</h2>
+        <p class="sub" id="mDesc" style="margin:0;color:#9fb2cf"></p>
+      </header>
+      <div class="content">
+        <div class="cols">
+          <div class="list" id="emuList">
+            <h5>Descargar emulador</h5>
+          </div>
+          <div class="list">
+            <h5>ROMs (romsfun.com)</h5>
+            <a id="romsLink" target="_blank" rel="noopener noreferrer">
+              <span>Ir al directorio de ROMs por consola</span>
+              <span class="pill">Abrir</span>
+            </a>
+            <div class="legal" style="margin-top:8px">Recomendamos verificar hashes y leer “Download Limit FAQ” de ROMSFUN.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+          <button class="btn" id="closeBtn">Cerrar</button>
+          <a class="btn primary" id="openAll" target="_blank" rel="noopener">Abrir todos los emuladores</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🔐 Seguridad: solo enlazamos sitios oficiales de emuladores. Acortadores o sitios dudosos se omiten. Para PS4 usamos <code class="small">shadPS4</code>.</p>
+  </footer>
+
+<script>
+/* ========= Config SEO ========= */
+const SITE_URL = "https://tudominio.com"; // ← CAMBIAR por tu dominio real
+/* ========= Catálogo ========= */
+/* Conservé tu listado y logos personalizados; solo añadí mejoras (lazy-load, ids y schema). */
+const CONS = [
+  // SONY
+  { key:'ps4', name:'PlayStation 4', family:'Sony',
+    img:'https://static.vecteezy.com/system/resources/previews/020/336/136/non_2x/playstation-ps5-ps4-logo-free-free-vector.jpg',
+    roms:'https://romsfun.com/roms/playstation-4/',
+    emulators:[
+      {name:'shadPS4 (sitio)', url:'https://shadps4.net/downloads'},
+      {name:'shadPS4 (GitHub releases)', url:'https://github.com/shadPS4-emu/shadPS4/releases'}
+    ],
+    note:'Muy temprano en compatibilidad; requiere PC potente.'
+  },
+  { key:'ps3', name:'PlayStation 3', family:'Sony',
+    img:'https://1000marcas.net/wp-content/uploads/2025/03/PS3-Emblem.png',
+    roms:'https://romsfun.com/roms/playstation-3/',
+    emulators:[ {name:'RPCS3 (descargas oficiales)', url:'https://rpcs3.net/download'} ]
+  },
+  { key:'ps2', name:'PlayStation 2', family:'Sony',
+    img:'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2020/01/ps2-logo.jpeg?tf=3840x',
+    roms:'https://romsfun.com/roms/playstation-2/',
+    emulators:[ {name:'PCSX2 (descargas)', url:'https://pcsx2.net/downloads/'} ]
+  },
+  { key:'ps1', name:'PlayStation (PS1)', family:'Sony',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUPXp9vn2MCZQC3EYkbATihl59G6HaoL9VGw&s',
+    roms:'https://romsfun.com/roms/playstation/',
+    emulators:[
+      {name:'DuckStation (website)', url:'https://www.duckstation.org/'},
+      {name:'DuckStation (GitHub releases)', url:'https://github.com/stenzek/duckstation/releases'}
+    ]
+  },
+  { key:'psp', name:'PSP', family:'Sony',
+    img:'https://i.pinimg.com/564x/9c/9e/6e/9c9e6ed41fddc8bb04c4a9049dce74ea.jpg',
+    roms:'https://romsfun.com/roms/psp/',
+    emulators:[ {name:'PPSSPP (descargas)', url:'https://www.ppsspp.org/download/'} ]
+  },
+  { key:'vita', name:'PlayStation Vita', family:'Sony',
+    img:'https://images.seeklogo.com/logo-png/30/1/ps-vita-logo-png_seeklogo-300951.png',
+    roms:'https://romsfun.com/roms/ps-vita/',
+    emulators:[ {name:'Vita3K (descargas)', url:'https://vita3k.org/download'} ]
+  },
+
+  // MICROSOFT
+  { key:'xbox', name:'Xbox (Original)', family:'Microsoft',
+    img:'https://assets.turbologo.com/blog/es/2019/11/19132903/xbox-logo-cover.jpg',
+    roms:'https://romsfun.com/roms/xbox/',
+    emulators:[ {name:'xemu (descargas)', url:'https://xemu.app/#downloads'} ]
+  },
+  { key:'x360', name:'Xbox 360', family:'Microsoft',
+    img:'https://xboxwire.thesourcemediaassets.com/sites/4/Xbox-360-Logo_JPG-53470e558f00fd0aded4-e187f8ec1be3c9a9edb4.jpg',
+    roms:'https://romsfun.com/roms/xbox-360/',
+    emulators:[ {name:'Xenia (sitio oficial)', url:'https://xenia.jp/'} ]
+  },
+
+  // NINTENDO
+  { key:'nes', name:'NES', family:'Nintendo',
+    img:'https://i.pinimg.com/736x/03/2e/a2/032ea28926b6284f0c4261f6760ae634.jpg',
+    roms:'https://romsfun.com/roms/nes/',
+    emulators:[ {name:'Mesen', url:'https://www.mesen.ca/'}, {name:'FCEUX', url:'http://www.fceux.com/web/home.html'} ]
+  },
+  { key:'snes', name:'Super Nintendo (SNES)', family:'Nintendo',
+    img:'https://upload.wikimedia.org/wikipedia/commons/3/31/SNES-Mod1-Console-Set.jpg',
+    roms:'https://romsfun.com/roms/super-nintendo/',
+    emulators:[ {name:'Snes9x', url:'https://www.snes9x.com/downloads.php'}, {name:'bsnes (releases)', url:'https://github.com/bsnes-emu/bsnes/releases'} ]
+  },
+  { key:'gb', name:'Game Boy', family:'Nintendo',
+    img:'https://upload.wikimedia.org/wikipedia/commons/f/f4/Game-Boy-FL.jpg',
+    roms:'https://romsfun.com/roms/game-boy/',
+    emulators:[ {name:'SameBoy', url:'https://sameboy.github.io/'} ]
+  },
+  { key:'gbc', name:'Game Boy Color', family:'Nintendo',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Game_Boy_Color_logo.svg/2560px-Game_Boy_Color_logo.svg.png',
+    roms:'https://romsfun.com/roms/game-boy-color/',
+    emulators:[ {name:'SameBoy', url:'https://sameboy.github.io/'} ]
+  },
+  { key:'gba', name:'Game Boy Advance', family:'Nintendo',
+    img:'https://i.pinimg.com/736x/27/af/92/27af92bf7c33813e4dedca9c758454e4.jpg',
+    roms:'https://romsfun.com/roms/game-boy-advance/',
+    emulators:[ {name:'mGBA', url:'https://mgba.io/downloads.html'}, {name:'VBA-M', url:'https://vba-m.com/'} ]
+  },
+  { key:'n64', name:'Nintendo 64', family:'Nintendo',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw28ED0kF5QhNMjBs8F2u9obZAY9oh5EJ8gg&s',
+    roms:'https://romsfun.com/roms/nintendo-64/',
+    emulators:[ {name:'Project64 (descargas)', url:'https://www.pj64-emu.com/public-releases'} ]
+  },
+  { key:'gc', name:'Nintendo GameCube', family:'Nintendo',
+    img:'https://1000marcas.net/wp-content/uploads/2021/05/Nintendo-GameCube-logo.png',
+    roms:'https://romsfun.com/roms/gamecube/',
+    emulators:[ {name:'Dolphin (descargas)', url:'https://dolphin-emu.org/download/'} ]
+  },
+  { key:'nds', name:'Nintendo DS', family:'Nintendo',
+    img:'https://p4.wallpaperbetter.com/wallpaper/708/643/596/nintendo-company-game-black-wallpaper-preview.jpg',
+    roms:'https://romsfun.com/roms/nintendo-ds/',
+    emulators:[ {name:'melonDS', url:'https://melonds.kuribo64.net/downloads.php'}, {name:'DeSmuME', url:'https://desmume.org/download/'} ]
+  },
+  { key:'3ds', name:'Nintendo 3DS', family:'Nintendo',
+    img:'https://forums.cdn.launchbox.gg/monthly_2018_12/logo.jpg.3f590e18abfe16aa42920af742ec9c10.jpg',
+    roms:'https://romsfun.com/roms/nintendo-3ds/',
+    emulators:[ {name:'Citra (descargas)', url:'https://citra-emu.org/download/'} ]
+  },
+  { key:'wii', name:'Nintendo Wii', family:'Nintendo',
+    img:'https://upload.wikimedia.org/wikipedia/commons/1/1c/Wii_logo.png',
+    roms:'https://romsfun.com/roms/nintendo-wii/',
+    emulators:[ {name:'Dolphin (descargas)', url:'https://dolphin-emu.org/download/'} ]
+  },
+  { key:'wiiu', name:'Nintendo Wii U', family:'Nintendo',
+    img:'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2011/06/74637-e3-asi-es-logo-nintendo-wii.jpg?tf=3840x',
+    roms:'https://romsfun.com/roms/wii-u/',
+    emulators:[ {name:'Cemu (descargas)', url:'https://cemu.info/'} ]
+  },
+  { key:'vb', name:'Virtual Boy', family:'Nintendo',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq-YfJbfnjE2pPuvzCF5vVWLkuf_oDXWR_Ww&s',
+    roms:'https://romsfun.com/roms/nintendo-virtual-boy/',
+    emulators:[ {name:'Mednafen', url:'https://mednafen.github.io/'} ]
+  },
+  { key:'pmini', name:'Pokémon Mini', family:'Nintendo',
+    img:'https://mir-s3-cdn-cf.behance.net/project_modules/1400/aad89e69686917.5b89a50c90f39.png',
+    roms:'https://romsfun.com/roms/nintendo-pokemon-mini/',
+    emulators:[ {name:'PokeMini (libretro docs)', url:'https://docs.libretro.com/library/pokemini/'},
+                {name:'PokeMini (SourceForge)', url:'https://sourceforge.net/projects/pokemini/'} ]
+  },
+
+  // SEGA
+  { key:'sms', name:'Sega Master System', family:'SEGA',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn2V4TtjLgdg3I_OL-N4l7dHTba98MqlKcUA&s',
+    roms:'https://romsfun.com/roms/sega-master-system/',
+    emulators:[ {name:'Emulicious', url:'https://emulicious.net/'} ]
+  },
+  { key:'md', name:'Mega Drive / Genesis', family:'SEGA',
+    img:'https://images.seeklogo.com/logo-png/12/1/sega-genesis-logo-png_seeklogo-124475.png',
+    roms:'https://romsfun.com/roms/sega-genesis/',
+    emulators:[ {name:'BlastEm', url:'https://www.retrodev.com/blastem/'} ]
+  },
+  { key:'gg', name:'Sega Game Gear', family:'SEGA',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn2AdVnC_z1XYld5jZIVFB64tfcCMoccBRQQ&s',
+    roms:'https://romsfun.com/roms/sega-game-gear/',
+    emulators:[ {name:'Emulicious', url:'https://emulicious.net/'} ]
+  },
+  { key:'segacd', name:'Sega CD / Mega-CD', family:'SEGA',
+    img:'https://upload.wikimedia.org/wikipedia/commons/c/c1/MEGA-CD_logo.png',
+    roms:'https://romsfun.com/roms/sega-cd/',
+    emulators:[ {name:'RetroArch (Genesis Plus GX core)', url:'https://www.libretro.com/'} ]
+  },
+  { key:'saturn', name:'Sega Saturn', family:'SEGA',
+    img:'https://static.wikitide.net/avidwiki/thumb/1/1f/Sega_Saturn.png/316px-Sega_Saturn.png',
+    roms:'https://romsfun.com/roms/sega-saturn/',
+    emulators:[ {name:'Kronos (releases)', url:'https://github.com/FCare/Kronos/releases'} ]
+  },
+  { key:'dreamcast', name:'Sega Dreamcast', family:'SEGA',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6ANcks9_ojlnNpTn-m_BB_8k7dn1O6M626Q&s',
+    roms:'https://romsfun.com/roms/sega-dreamcast/',
+    emulators:[ {name:'Flycast (releases)', url:'https://github.com/flyinghead/flycast/releases'} ]
+  },
+  { key:'naomi', name:'Sega Naomi (Arcade)', family:'SEGA',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSajd_Fu99AybxRtsJhxMF2I40T9ngDSqsXdXkXSBD-yX50dw0Y35Uah_ghhT5aHSf7eFo&usqp=CAU',
+    roms:'https://romsfun.com/roms/sega-naomi/',
+    emulators:[ {name:'Flycast (Naomi)', url:'https://github.com/flyinghead/flycast/releases'},
+                {name:'MAME', url:'https://www.mamedev.org/release.php'} ]
+  },
+
+  // ARCADE / PC Y VARIOS
+  { key:'mame', name:'MAME (Arcades)', family:'Arcade',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTayJKZ2v9QhGhxzw9l_LcnEcH6XHHN45S-wQ&s',
+    roms:'https://romsfun.com/roms/mame/',
+    emulators:[ {name:'MAME (descargas oficiales)', url:'https://www.mamedev.org/release.php'} ]
+  },
+  { key:'dos', name:'MS-DOS / Win9x', family:'PC',
+    img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Msdos-icon.svg/800px-Msdos-icon.svg.png',
+    roms:'https://romsfun.com/roms/ms-dos/',
+    emulators:[ {name:'DOSBox-X', url:'https://dosbox-x.com/'}, {name:'DOSBox (clásico)', url:'https://www.dosbox.com/download.php?main=1'} ]
+  },
+  { key:'msx', name:'MSX', family:'PC',
+    img:'https://ih1.redbubble.net/image.1043943819.2557/fposter,small,wall_texture,product,750x1000.jpg',
+    roms:'https://romsfun.com/roms/microsoft-msx/',
+    emulators:[ {name:'openMSX', url:'https://openmsx.org/#downloads'} ]
+  },
+  { key:'msx2', name:'MSX2', family:'PC',
+    img:'https://forums.cdn.launchbox.gg/monthly_2021_01/1681976255_MicrosoftMSX2.png.3767235b0c0805f89f66e7dabdf0aeeb.png',
+    roms:'https://romsfun.com/roms/microsoft-msx2/',
+    emulators:[ {name:'openMSX', url:'https://openmsx.org/#downloads'} ]
+  },
+  { key:'pc98', name:'NEC PC-98', family:'PC',
+    img:'https://emumovies.com/storage/downloads/screenshots/monthly_2020_03/logothumb.png.892e71a36bf131f2b3f97997ab879982.png',
+    roms:'https://romsfun.com/roms/nec-pc-9801/',
+    emulators:[ {name:'NP2kai (libretro)', url:'https://github.com/AZO234/NP2kai'} ]
+  },
+  { key:'pcfx', name:'NEC PC-FX', family:'PC',
+    img:'https://upload.wikimedia.org/wikipedia/uk/e/e9/NEC_PC-FX_logo.svg',
+    roms:'https://romsfun.com/roms/nec-pc-fx/',
+    emulators:[ {name:'Mednafen', url:'https://mednafen.github.io/'} ]
+  },
+  { key:'neogeo', name:'Neo Geo / AES / CD', family:'SNK',
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWvGc8ZfKaHWomHqUzisQAolC_9ZKUDE9p2Q&s',
+    roms:'https://romsfun.com/roms/neo-geo-aes/',
+    emulators:[ {name:'MAME', url:'https://www.mamedev.org/release.php'}, {name:'FinalBurn Neo (releases)', url:'https://github.com/finalburnneo/FBNeo/releases'} ]
+  },
+];
+
+/* ========= Render ========= */
+const families = [...new Set(CONS.map(c=>c.family))];
+const filtersEl = document.getElementById('filters');
+filtersEl.innerHTML = ['Todas', ...families].map(f=>`<button class="chip${f==='Todas'?' active':''}" data-family="${f}" role="tab">${f}</button>`).join('');
+
+const grid = document.getElementById('grid');
+function card(c){
+  return `
+  <article class="card" id="${c.key}" data-key="${c.key}" data-family="${c.family}" itemscope itemtype="https://schema.org/SoftwareApplication">
+    <div class="thumb"><img src="${c.img}" alt="${c.name}" loading="lazy" decoding="async" itemprop="image"></div>
+    <div class="body">
+      <div class="label" itemprop="applicationCategory">${c.family}</div>
+      <h3 class="h4" itemprop="name">${c.name}</h3>
+      <p class="muted" itemprop="description">ROMs en ROMSFUN · Emuladores oficiales</p>
+      <div class="actions">
+        <button class="btn primary" data-action="details" data-key="${c.key}" aria-label="Descargar emulador para ${c.name}">Descargar emulador</button>
+        <a class="btn" href="${c.roms}" target="_blank" rel="noopener" aria-label="Ver ROMs de ${c.name}">Ver ROMs</a>
+      </div>
+    </div>
+  </article>`;
+}
+function render(list){ grid.innerHTML = list.map(card).join(''); }
+render(CONS);
+
+/* Query param -> buscador (para SearchAction SEO) */
+const qInput = document.getElementById('q');
+const urlQ = new URLSearchParams(location.search).get('q') || '';
+if (urlQ){ qInput.value = urlQ; }
+
+/* Filtro y búsqueda */
+function apply(){
+  const q=(qInput.value||'').toLowerCase();
+  const fam = document.querySelector('.chip.active')?.dataset.family ?? 'Todas';
+  render(CONS.filter(c=>{
+    const hit=(c.name+' '+c.family).toLowerCase().includes(q);
+    const ok=fam==='Todas'||c.family===fam;
+    return hit && ok;
+  }));
+}
+qInput.addEventListener('input', apply);
+filtersEl.addEventListener('click', e=>{
+  const btn=e.target.closest('.chip'); if(!btn) return;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');
+  apply();
+});
+apply();
+
+/* Modal */
+const modal = document.getElementById('modal');
+const mImg = document.getElementById('mImg');
+const mTitle = document.getElementById('mTitle');
+const mFamily = document.getElementById('mFamily');
+const mDesc = document.getElementById('mDesc');
+const romsLink = document.getElementById('romsLink');
+const emuList = document.getElementById('emuList');
+const openAll = document.getElementById('openAll');
+document.body.addEventListener('click', e=>{
+  const btn = e.target.closest('[data-action="details"]'); if(!btn) return;
+  const c = CONS.find(x=>x.key===btn.dataset.key);
+  if(!c) return;
+  mImg.src = c.img; mImg.alt=c.name;
+  mTitle.textContent = c.name;
+  mFamily.textContent = c.family;
+  mDesc.textContent = c.note || 'Sitios oficiales recomendados.';
+  romsLink.href = c.roms;
+  emuList.innerHTML = `<h5>Descargar emulador</h5>` + c.emulators.map(e=>`
+    <a href="${e.url}" target="_blank" rel="noopener">
+      <span>⬇️ ${e.name}</span>
+      <span class="pill">Oficial</span>
+    </a>`).join('') + (c.key==='ps4' ? `<div class="legal danger" style="margin-top:8px">Evitamos acortadores o sitios no oficiales.</div>`:'');
+  openAll.href = c.emulators[0]?.url || c.roms;
+  openAll.onclick = (ev)=>{ ev.preventDefault(); c.emulators.forEach((e,i)=>setTimeout(()=>window.open(e.url,'_blank','noopener'), i*100)); };
+  modal.classList.add('open');
+});
+document.getElementById('closeBtn').onclick = ()=> modal.classList.remove('open');
+modal.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('open'); });
+
+/* ========= JSON-LD dinámico (ItemList con anclas del sitio) ========= */
+(function injectItemList(){
+  try{
+    const itemList = {
+      "@context":"https://schema.org",
+      "@type":"ItemList",
+      "name":"Consolas y emuladores — Sala Retro",
+      "itemListElement": CONS.map((c, i)=>({
+        "@type":"ListItem",
+        "position": i+1,
+        "url": SITE_URL + "/#" + c.key,
+        "name": c.name
+      }))
+    };
+    const s=document.createElement('script');
+    s.type='application/ld+json';
+    s.textContent = JSON.stringify(itemList);
+    document.head.appendChild(s);
+  }catch(e){}
+})();
+
+/* ========= JSON-LD FAQ (ayuda a captar rich results) ========= */
+(function injectFAQ(){
+  const faq = {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"¿Es legal descargar ROMs?",
+       "acceptedAnswer":{"@type":"Answer","text":"Solo usá ROMs de juegos que poseas o contenidos homebrew/abandonware permitidos en tu país. Este sitio no aloja ROMs; enlazamos a catálogos externos."}},
+      {"@type":"Question","name":"¿Los emuladores son gratuitos?",
+       "acceptedAnswer":{"@type":"Answer","text":"Sí, los proyectos enlazados son oficiales y gratuitos. Algunos aceptan donaciones."}},
+      {"@type":"Question","name":"¿Qué requisitos necesito?",
+       "acceptedAnswer":{"@type":"Answer","text":"Depende de la consola. Portátiles y 16-bit suelen correr en PCs modestos; PS3/PS4 y Xbox 360 requieren hardware potente y drivers actualizados."}}
+    ]
+  };
+  const s=document.createElement('script');
+  s.type='application/ld+json';
+  s.textContent=JSON.stringify(faq);
+  document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>
+
