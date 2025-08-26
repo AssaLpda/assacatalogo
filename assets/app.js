@@ -946,6 +946,13 @@ function bindApp(slug){
   }
 }
 
+(function(){
+    const chip = document.getElementById('f-emuladores');
+    if (!chip) return;
+    chip.addEventListener('change', () => {
+      if (chip.checked) window.location.href = 'emuladores.html';
+    });
+  })();
 // ==========================
 // INIT
 // ==========================
