@@ -10,6 +10,9 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Prefetch de Emuladores para carga más rápida -->
+  <link rel="prefetch" href="emuladores.html" as="document" />
+
   <!-- Nuestros estilos -->
   <link rel="stylesheet" href="assets/style.css" />
   <style>
@@ -54,6 +57,7 @@
         <div class="size-8 rounded-2xl bg-sky-500 grid place-content-center font-black">A</div>
         <div class="font-semibold tracking-tight">AssaApp's <span class="text-slate-400 font-normal">Premium</span></div>
       </a>
+
       <div class="ms-auto w-full max-w-lg">
         <label class="relative block">
           <input id="searchInput" placeholder="Buscar apps…"
@@ -61,6 +65,21 @@
           <svg viewBox="0 0 20 20" class="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 opacity-60"><path fill="currentColor" d="M12.9 14.32a8 8 0 1 1 1.41-1.41l3.39 3.39-1.41 1.41zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/></svg>
         </label>
       </div>
+
+      
+        <a href="emuladores.html"
+   class="inline-flex items-center justify-center gap-2
+          px-4 py-2 rounded-xl text-sm font-semibold
+          text-white bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500
+          shadow-md shadow-indigo-900/40 ring-1 ring-white/10
+          hover:from-sky-400 hover:via-indigo-400 hover:to-fuchsia-400
+          hover:shadow-lg hover:shadow-indigo-900/50
+          active:scale-[.98] transition">
+  Emuladores
+</a>
+
+      </nav>
+
       <a id="ytLinkTop" target="_blank" class="rounded-2xl bg-red-600/90 hover:bg-red-600 px-4 py-2 text-sm font-semibold">YouTube</a>
     </div>
   </header>
@@ -68,7 +87,7 @@
   <!-- Main -->
   <main id="app" class="mx-auto max-w-7xl px-4 py-6" data-filter="todos">
     <!-- Barra de filtros -->
-    <section class="mb-6">
+    <section id="filtros" class="mb-6">
       <div class="segmented-wrap">
         <div class="segmented min-w-max">
           <!-- Todos -->
@@ -141,7 +160,7 @@
   <!-- Script principal -->
   <script src="assets/app.js"></script>
 
-  <!-- Script del filtro -->
+  <!-- Script del filtro + Nav -->
   <script>
     // Set año footer
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -154,7 +173,7 @@
       });
     });
 
-    // Si querés que app.js reaccione también, emitimos un evento opcional:
+    // Evento opcional para tu app.js
     document.querySelectorAll('input[name="cat"]').forEach(r => {
       r.addEventListener('change', () => {
         const ev = new CustomEvent('catalog:filter-change', { detail: { value: r.value }});
@@ -162,10 +181,22 @@
       });
     });
 
+    // Nav: al click en "Juegos" activa el filtro y hace scroll suave
+    const navJuegos = document.getElementById('navJuegos');
+    if (navJuegos) {
+      navJuegos.addEventListener('click', (e) => {
+        e.preventDefault();
+        const radio = document.getElementById('f-juegos');
+        if (radio) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        document.getElementById('filtros')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
     // Nota: asegurate de que las cards tengan: class="app-card" data-category="juegos|aplicaciones|programas|sistemas"
     // Ej: <article class="app-card" data-category="juegos"> ... </article>
   </script>
 </body>
 </html>
-
-
