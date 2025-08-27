@@ -662,7 +662,7 @@ const APPS = [
   version: 'Rev14 (24H2)',
   size: '4.3 GB',
   cover: 'https://i.ytimg.com/vi/_GXmqTzSs9I/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAvtmpgR58xlhb5edIkmVBmndp2Tw',
-  tags: ['windows', 'custom iso', '24H2', 'gaming', 'rendimiento', 'optimización', 'debloat'],
+  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
   description: `WinterOS Rev14 es una edición personalizada de Windows 11 Pro 24H2 enfocada en rendimiento: menos bloatware y telemetría, servicios ajustados, mejor respuesta de CPU/GPU y menor latencia. Ideal para gaming, streaming y equipos de bajos o altos recursos.`,
   download: 'https://srtslug.biz/8byXr',
   mirrors: []
@@ -674,7 +674,7 @@ const APPS = [
   version: 'Rev15 (24H2 Pro)',
   size: '4.5 GB',
   cover: 'https://i.ytimg.com/vi/gc5c3A6wn_o/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDRyV2l0y2lYdWtA3p0C-HQYVo_sg',
-  tags: ['windows', 'custom iso', '24H2', 'gaming', 'rendimiento', 'optimización', 'debloat'],
+  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
   description: `Edición personalizada de Windows 11 24H2 orientada a rendimiento y baja latencia: menos bloatware y telemetría, servicios ajustados, tiempos de arranque reducidos y mejor respuesta en juegos/streaming. Ideal para PCs de bajos o altos recursos.`,
   download: 'https://srtslug.biz/8byZh',
   mirrors: []
