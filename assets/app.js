@@ -571,6 +571,67 @@ const APPS = [
   download: 'https://stly.link/instaprov2',
   mirrors: []
 },
+{
+  slug: 'youtube-music-mod-8-34-51',
+  title: 'YouTube Music v8.34.51 [MOD]',
+  platform: 'Android',
+  version: '8.34.51',
+  size: '67 MB',
+  cover: 'https://indiehoy.com/wp-content/uploads/2020/01/youtubepremium-youtubemusic.png',
+  tags: ['música', 'streaming', 'youtube', 'premium', 'mod', 'offline', 'segundo plano'],
+  description: `Disfrutá YouTube Music sin anuncios y con funciones premium: reproducción en segundo plano/pantalla apagada, modo solo audio, descargas para escuchar offline, salto ilimitado y audio de alta calidad. (Las funciones pueden variar según el build).`,
+  download: 'https://stfly.vip/ytmus',
+  mirrors: []
+},
+{
+  slug: 'shotcut-pro-2-18-0',
+  title: 'ShotCut v2.18.0 [Pro]',
+  platform: 'Android',
+  version: '2.18.0',
+  size: '135.4 MB',
+  cover: 'https://i.ytimg.com/vi/2_lQMGwtqf8/hqdefault.jpg',
+  tags: ['video', 'edición', 'plantillas', 'transiciones', 'filtros', 'pro'],
+  description: `Editor de video móvil con herramientas Pro: edición por capas, recorte, velocidad (slow/fast), transiciones y filtros, música/FX, texto y stickers, exportación en HD/Full HD y sin marcas de agua en la versión Pro. Ideal para reels, shorts y videos para redes.`,
+  download: 'https://stfly.vip/8byPt',
+  mirrors: []
+},
+{
+  slug: 'youtube-revanced-20-13-41',
+  title: 'YouTube ReVanced v20.13.41',
+  platform: 'Android',
+  version: '20.13.41',
+  size: '167 MB',
+  cover: 'https://cdn.thinkkers.com/wp-content/uploads/2022/08/Youtube-ReVanced-Apk.jpg',
+  tags: ['video', 'youtube', 'mod', 'sin anuncios', 'segundo plano', 'pip', 'sponsorblock'],
+  description: `Cliente mod de YouTube con funciones tipo premium: sin anuncios, reproducción en segundo plano/pantalla apagada, Picture-in-Picture, controles avanzados y SponsorBlock integrado. Puede requerir microG para iniciar sesión. (Las funciones exactas dependen del build).`,
+  download: 'https://stfly.vip/ytrevan',
+  mirrors: []
+},
+{
+  slug: 'ad-blocker-pro-6-5-1-premium',
+  title: 'Ad Blocker Pro v6.5.1 [Premium Features Unlocked]',
+  platform: 'Android',
+  version: '6.5.1',
+  size: '15 MB',
+  cover: 'https://images.squarespace-cdn.com/content/v1/54e310f0e4b0f4a6ba3ac899/47c70f4f-c5bb-4381-bcbf-90f2b94add5f/Ad-blocker.jpg',
+  tags: ['bloqueo de anuncios', 'privacidad', 'rastreo', 'antipopups', 'filtros', 'seguridad'],
+  description: `Bloquea anuncios en apps y navegador, elimina pop-ups y rastreadores, y aplica listas de filtros personalizadas. Mejora la privacidad, reduce consumo de datos/batería y acelera la carga de páginas. Incluye reglas por app y soporte para listas avanzadas en la versión Premium.`,
+  download: 'https://stfly.vip/8byQy',
+  mirrors: []
+},
+{
+  slug: 'xy-vpn-4-9-947-premium',
+  title: 'XY VPN v4.9.947 [Premium Features Unlocked]',
+  platform: 'Android',
+  version: '4.9.947',
+  size: '30 MB',
+  cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTERg4etch1ivkT4goyxnPlQYezoOdLAEI17Q&s',
+  tags: ['vpn', 'privacidad', 'seguridad', 'servidores globales', 'sin anuncios', 'kill switch'],
+  description: `XY VPN Premium protege tu conexión con cifrado y política sin registros, desbloquea contenido georrestringido y ofrece servidores de alta velocidad para streaming y juegos. Incluye selección inteligente de servidor, modo automático, datos ilimitados y navegación sin anuncios.`,
+  download: 'https://stfly.vip/8byR3',
+  mirrors: []
+},
+
 
 
 
