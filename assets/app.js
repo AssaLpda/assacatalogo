@@ -631,6 +631,56 @@ const APPS = [
   download: 'https://stfly.vip/8byR3',
   mirrors: []
 },
+{
+  slug: 'windows-11-showos-pro-1-0',
+  title: 'Windows 11 ShowOS Pro v1.0 (MediaFire)',
+  platform: 'Windows',
+  version: '1.0',
+  size: '4.04 GB',
+  cover: 'https://i.ytimg.com/vi/yDiQ4442vbs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAOEr4M8RLJZGivVjZ5XgUdTgrUNA',
+  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
+  description: `ShowOS Pro es una edición personalizada de Windows 11 enfocada en velocidad y fluidez. Reduce bloatware y telemetría, ajusta servicios en segundo plano y aplica tweaks para menor latencia, arranques más rápidos y mejor respuesta en juegos. Ideal para gaming, streaming y uso diario en PCs de bajos o altos recursos.`,
+  download: 'https://srtslug.biz/8byTV',
+  mirrors: []
+},
+{
+  slug: 'windows-11-showos-pro-1-0',
+  title: 'Windows 11 ShowOS Pro v1.0 (Mega)',
+  platform: 'Windows',
+  version: '1.0',
+  size: '4.04 GB',
+  cover: 'https://i.ytimg.com/vi/yDiQ4442vbs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAOEr4M8RLJZGivVjZ5XgUdTgrUNA',
+  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
+  description: `ShowOS Pro es una edición personalizada de Windows 11 enfocada en velocidad y fluidez. Reduce bloatware y telemetría, ajusta servicios en segundo plano y aplica tweaks para menor latencia, arranques más rápidos y mejor respuesta en juegos. Ideal para gaming, streaming y uso diario en PCs de bajos o altos recursos.`,
+  download: 'https://srtslug.biz/8byVh',
+  mirrors: []
+},
+{
+  slug: 'winteros-rev14-w11pro-24h2',
+  title: 'WinterOS Rev14 – Windows 11 Pro 24H2',
+  platform: 'Windows',
+  version: 'Rev14 (24H2)',
+  size: '4.3 GB',
+  cover: 'https://i.ytimg.com/vi/_GXmqTzSs9I/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAvtmpgR58xlhb5edIkmVBmndp2Tw',
+  tags: ['windows', 'custom iso', '24H2', 'gaming', 'rendimiento', 'optimización', 'debloat'],
+  description: `WinterOS Rev14 es una edición personalizada de Windows 11 Pro 24H2 enfocada en rendimiento: menos bloatware y telemetría, servicios ajustados, mejor respuesta de CPU/GPU y menor latencia. Ideal para gaming, streaming y equipos de bajos o altos recursos.`,
+  download: 'https://srtslug.biz/8byXr',
+  mirrors: []
+},
+{
+  slug: 'winteros-w11-24h2pro-rev15',
+  title: 'WinterOS W11 v24H2PRO Rev15',
+  platform: 'Windows',
+  version: 'Rev15 (24H2 Pro)',
+  size: '4.5 GB',
+  cover: 'https://i.ytimg.com/vi/gc5c3A6wn_o/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDRyV2l0y2lYdWtA3p0C-HQYVo_sg',
+  tags: ['windows', 'custom iso', '24H2', 'gaming', 'rendimiento', 'optimización', 'debloat'],
+  description: `Edición personalizada de Windows 11 24H2 orientada a rendimiento y baja latencia: menos bloatware y telemetría, servicios ajustados, tiempos de arranque reducidos y mejor respuesta en juegos/streaming. Ideal para PCs de bajos o altos recursos.`,
+  download: 'https://srtslug.biz/8byZh',
+  mirrors: []
+},
+
+
 
 
 
