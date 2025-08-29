@@ -48,6 +48,10 @@
     }
     /* Chips scrollables en móvil */
     .segmented-wrap { overflow-x: auto; scrollbar-width: thin; }
+
+    /* Overlay mínimo para que el card completo sea clickeable (el resto del CSS del carrusel va en assets/style.css) */
+    #featured .item .item-link{position:absolute;inset:0;display:block;border-radius:inherit;z-index:2}
+    #featured .item .content{position:relative;z-index:3}
   </style>
 </head>
 <body class="h-full bg-slate-950 text-slate-100">
@@ -68,26 +72,38 @@
         </label>
       </div>
 
-      
-        <a href="emuladores.html"
-   class="inline-flex items-center justify-center gap-2
-          px-4 py-2 rounded-xl text-sm font-semibold
-          text-white bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500
-          shadow-md shadow-indigo-900/40 ring-1 ring-white/10
-          hover:from-sky-400 hover:via-indigo-400 hover:to-fuchsia-400
-          hover:shadow-lg hover:shadow-indigo-900/50
-          active:scale-[.98] transition">
-  Emuladores
-</a>
-
-      </nav>
+      <a href="emuladores.html"
+         class="inline-flex items-center justify-center gap-2
+                px-4 py-2 rounded-xl text-sm font-semibold
+                text-white bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500
+                shadow-md shadow-indigo-900/40 ring-1 ring-white/10
+                hover:from-sky-400 hover:via-indigo-400 hover:to-fuchsia-400
+                hover:shadow-lg hover:shadow-indigo-900/50
+                active:scale-[.98] transition">
+        Emuladores
+      </a>
 
       <a id="ytLinkTop" target="_blank" class="rounded-2xl bg-red-600/90 hover:bg-red-600 px-4 py-2 text-sm font-semibold">YouTube</a>
     </div>
   </header>
-
+ 
   <!-- Main -->
   <main id="app" class="mx-auto max-w-7xl px-4 py-6" data-filter="todos">
+
+    <!-- ⭐ Destacados del mes (Carrusel estilo card) -->
+    <section id="featured" class="relative mb-8">
+      <h2 class="text-xl md:text-2xl font-bold mb-3">⭐ Destacados del mes</h2>
+
+      <ul class="slider" role="list" aria-label="Destacados del mes">
+        <!-- El JS llenará los <li class="item"> con tus destacados -->
+      </ul>
+
+      <nav class="nav" aria-label="Controles del carrusel">
+        <ion-icon class="btn prev" name="arrow-back-outline" aria-label="Anterior"></ion-icon>
+        <ion-icon class="btn next" name="arrow-forward-outline" aria-label="Siguiente"></ion-icon>
+      </nav>
+    </section>
+
     <!-- Barra de filtros -->
     <section id="filtros" class="mb-6">
       <div class="segmented-wrap">
@@ -95,7 +111,6 @@
           <!-- Todos -->
           <input type="radio" name="cat" id="f-todos" value="todos" checked>
           <label for="f-todos" title="Mostrar todo">
-            <!-- icono -->
             <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z"/></svg>
             Todos
           </label>
@@ -162,6 +177,10 @@
   <!-- Script principal -->
   <script src="assets/app.js"></script>
 
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
   <!-- Script del filtro + Nav -->
   <script>
     // Set año footer
@@ -196,9 +215,7 @@
         document.getElementById('filtros')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
-
-    // Nota: asegurate de que las cards tengan: class="app-card" data-category="juegos|aplicaciones|programas|sistemas"
-    // Ej: <article class="app-card" data-category="juegos"> ... </article>
   </script>
 </body>
 </html>
+

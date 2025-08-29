@@ -3,16 +3,189 @@
 // ==========================
 const SITE = {
   name: 'Assa AppHub Premium',
-  youtubePrincipal: 'https://www.youtube.com/@AssaApps',
-  youtubeSecundario: 'https://www.youtube.com/@AssaAR10',
+  youtubePrincipal: 'https://www.youtube.com/@AssaAR10',
+  youtubeSecundario: 'https://www.youtube.com/@AssaApps',
   downloadEndpoint: null,
   unlockSeconds: 20,
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById('ytLinkTop').href = SITE.youtubePrincipal;
-  document.getElementById('year').textContent = new Date().getFullYear();
+  const yt = document.getElementById('ytLinkTop');
+  if (yt) yt.href = SITE.youtubePrincipal;
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
 });
+
+/* ============================================================
+   ⭐ Destacados del mes — Carrusel estilo card (drop-in)
+   - Enlaces: si hay app.download -> va directo a la descarga (nueva pestaña)
+              si no hay download -> va al detalle "#/app/slug"
+   - Autoplay con pausa inteligente (hover/touch/focus/visibility)
+   ============================================================ */
+
+// 1) Slugs destacados (del catálogo APPS)
+const FEATURED_SLUGS = [
+  'after-effects-2025',
+  'windows-x-lite-11',
+  'tele-latino-tv',
+  'spotify-mod-9-0-72-967',
+  'dark-play-1-0',
+  'minecraft-1-21-100-6'
+];
+
+// 2) Autoplay
+const FEATURED_AUTOPLAY_MS = 4500;
+let __featTimer = null;
+
+function prefersReducedMotion() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+function stopFeaturedAutoplay() {
+  if (__featTimer) { clearInterval(__featTimer); __featTimer = null; }
+}
+function startFeaturedAutoplay(wrap = document) {
+  stopFeaturedAutoplay();
+  const slider = wrap.querySelector('#featured .slider');
+  if (!slider) return;
+  if (slider.children.length < 2 || prefersReducedMotion()) return;
+  __featTimer = setInterval(() => { wrap.__featNext?.(); }, FEATURED_AUTOPLAY_MS);
+}
+function restartFeaturedAutoplay(wrap = document) {
+  stopFeaturedAutoplay();
+  setTimeout(() => startFeaturedAutoplay(wrap), 600);
+}
+
+// 3) Utilidades carrusel
+function isExternal(href) { return /^https?:\/\//i.test(href); }
+
+// 4) Fuente de datos del carrusel
+function featuredItemsFrom(APPS) {
+  if (!Array.isArray(APPS)) return [];
+  const set = new Set(FEATURED_SLUGS);
+  return APPS.filter(a => a && set.has(a.slug));
+}
+
+// 5) Render carrusel (con link directo a descarga si existe)
+function renderFeaturedInto(root = document) {
+  try {
+    const doc = root.getElementById ? root : document;
+    const slider = doc.querySelector('#featured .slider');
+    if (!slider) return;
+
+    const items = featuredItemsFrom(window.APPS || []);
+   slider.innerHTML = items.map(app => {
+  const href = `#/app/${app.slug}`;   // 👉 siempre al detalle
+  const cover = app.cover || app.image || '';
+  const parts = [];
+  if (app.platform) parts.push(app.platform);
+  if (app.version)  parts.push(`v${app.version}`);
+  if (app.size)     parts.push(app.size);
+
+  return `
+    <li class="item" style="background-image:url('${cover}')">
+      <a class="item-link" href="${href}" target="_self" aria-label="${app.title}"></a>
+      <div class="content">
+        <h3 class="title">${app.title || ''}</h3>
+        <p class="description">${parts.join(' · ')}</p>
+        <span class="cta" aria-hidden="true">Ver detalles →</span>
+      </div>
+    </li>
+  `.trim();
+}).join('');
+
+
+    bindFeaturedControls(doc);
+    bindFeaturedKeys(doc);
+    const sliderEl = doc.querySelector('#featured .slider');
+    if (sliderEl) {
+      bindFeaturedSwipe(sliderEl, doc);
+
+      // Fallback: si clickean en cualquier parte de la tarjeta y no justo en <a>,
+      // abrimos el href del anchor overlay manualmente (evita overlays que bloqueen)
+      sliderEl.addEventListener('click', (e) => {
+        const aClicked = e.target.closest('a');
+        if (aClicked) return; // ya funciona el <a>
+        const item = e.target.closest('#featured .item');
+        if (!item) return;
+        const a = item.querySelector('a.item-link');
+        if (!a) return;
+        // abrir respetando target
+        if (a.target === '_blank') window.open(a.href, '_blank', 'noopener');
+        else window.location.href = a.href;
+      });
+    }
+
+    // Autoplay + pausas
+    startFeaturedAutoplay(doc);
+
+    const featuredWrap = doc.querySelector('#featured');
+    if (featuredWrap) {
+      featuredWrap.addEventListener('mouseenter', () => stopFeaturedAutoplay());
+      featuredWrap.addEventListener('mouseleave', () => startFeaturedAutoplay(doc));
+      featuredWrap.addEventListener('focusin',   () => stopFeaturedAutoplay());
+      featuredWrap.addEventListener('focusout',  () => startFeaturedAutoplay(doc));
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopFeaturedAutoplay();
+      else startFeaturedAutoplay(doc);
+    });
+  } catch (err) { console.error('renderFeaturedInto error:', err); }
+}
+
+// 6) Controles (flechas)
+function bindFeaturedControls(doc = document) {
+  const slider = doc.querySelector('#featured .slider');
+  const prev = doc.querySelector('#featured .nav .prev');
+  const next = doc.querySelector('#featured .nav .next');
+  if (!slider) return;
+
+  const goNext = () => {
+    if (slider.children.length > 0) {
+      slider.appendChild(slider.firstElementChild);
+      restartFeaturedAutoplay(doc);
+    }
+  };
+  const goPrev = () => {
+    if (slider.children.length > 0) {
+      slider.insertBefore(slider.lastElementChild, slider.firstElementChild);
+      restartFeaturedAutoplay(doc);
+    }
+  };
+
+  prev?.addEventListener('click', goPrev);
+  next?.addEventListener('click', goNext);
+
+  // Exponer para teclado / swipe / autoplay
+  doc.__featPrev = goPrev;
+  doc.__featNext = goNext;
+}
+
+// 7) Teclado
+function bindFeaturedKeys(doc = document) {
+  const onKey = (e) => {
+    if (e.key === 'ArrowRight') { doc.__featNext?.(); }
+    else if (e.key === 'ArrowLeft') { doc.__featPrev?.(); }
+  };
+  document.addEventListener('keydown', onKey);
+}
+
+// 8) Swipe / Drag
+function bindFeaturedSwipe(slider, doc = document) {
+  let startX = 0, dx = 0, touching = false;
+  const start = (e) => { touching = true; stopFeaturedAutoplay(); startX = (e.touches ? e.touches[0].clientX : e.clientX); dx = 0; };
+  const move  = (e) => { if (!touching) return; const x = (e.touches ? e.touches[0].clientX : e.clientX); dx = x - startX; };
+  const end   = () => {
+    if (!touching) return; touching = false;
+    if (Math.abs(dx) > 40) { dx > 0 ? doc.__featPrev?.() : doc.__featNext?.(); }
+    restartFeaturedAutoplay(doc);
+  };
+  slider.addEventListener('touchstart', start, { passive: true });
+  slider.addEventListener('touchmove',  move,  { passive: true });
+  slider.addEventListener('touchend',   end);
+  slider.addEventListener('mousedown',  start);
+  window.addEventListener('mousemove',  move);
+  window.addEventListener('mouseup',    end);
+}
 
 // ==========================
 // CATÁLOGO DE APPS
@@ -62,7 +235,7 @@ const APPS = [
     size: '112 MB',
     cover: '/assets/img/whatsapp.png',
     tags: ['Aplicaciones', 'premium', 'sandbox'],
-    description: `Construye, explora y sobrevive en mundos infinitos. Versión comprada, lista para instalar.`,
+    description: `Construye, explora y sobrev…`,
     download: 'https://srtslug.biz/wspls',
     mirrors: []
   },
@@ -86,7 +259,7 @@ const APPS = [
     size: '40 MB',
     cover: 'assets/img/aiphoto.webp',
     tags: ['fotos', 'inteligencia-artificial', 'upscale', 'mejorar'],
-    description: `Mejorá y aumentá la resolución de tus fotos con inteligencia artificial de forma rápida y sencilla.`,
+    description: `Mejorá y aumentá la resolución de tus fotos con IA.`,
     download: 'https://srtslug.biz/8b9DM',
     mirrors: []
   },
@@ -110,7 +283,7 @@ const APPS = [
     size: '35 MB',
     cover: 'https://i0.wp.com/keyhouse24.com/wp-content/uploads/2023/06/Avast-Cleanup-Boost-Pro-For-Android-1-Device-1-Year-Global.png?fit=616%2C353&ssl=1',
     tags: ['seguridad', 'limpieza', 'rendimiento', 'optimización'],
-    description: `Optimiza tu dispositivo eliminando archivos basura, mejorando el rendimiento y extendiendo la vida útil de la batería.`,
+    description: `Optimiza tu dispositivo eliminando archivos basura.`,
     download: 'https://srtslug.biz/avscln',
     mirrors: []
   },
@@ -122,7 +295,7 @@ const APPS = [
     size: '25 MB',
     cover: 'assets/img/background.png',
     tags: ['fotos', 'edición', 'fondo', 'diseño'],
-    description: `Elimina fácilmente el fondo de tus fotos y crea imágenes con transparencia para tus diseños y proyectos.`,
+    description: `Elimina fácilmente el fondo de tus fotos.`,
     download: 'https://srtslug.biz/8b9Fx',
     mirrors: []
   },
@@ -134,7 +307,7 @@ const APPS = [
     size: '30 MB',
     cover: 'assets/img/castv.webp',
     tags: ['streaming', 'tv', 'chromecast', 'roku'],
-    description: `Transmití tus videos y fotos a cualquier TV compatible de forma rápida y sencilla.`,
+    description: `Transmití tus videos y fotos a la TV.`,
     download: 'https://srtslug.biz/8b9FM',
     mirrors: []
   },
@@ -146,7 +319,7 @@ const APPS = [
     size: '40 MB',
     cover: 'https://i.ytimg.com/vi/8wJYuwXs9uw/maxresdefault.jpg',
     tags: ['limpieza', 'rendimiento', 'optimización'],
-    description: `Optimiza tu dispositivo, limpia archivos innecesarios y mejora el rendimiento con la versión Pro de CCleaner.`,
+    description: `Limpia archivos innecesarios y mejora el rendimiento.`,
     download: 'https://srtslug.biz/8b9Fm',
     mirrors: []
   },
@@ -158,7 +331,7 @@ const APPS = [
     size: '50 MB',
     cover: 'assets/img/CCleaner.png',
     tags: ['limpieza', 'rendimiento', 'pc', 'optimización'],
-    description: `CCleaner PRO optimiza el rendimiento de tu PC eliminando archivos basura, limpiando registros, gestionando aplicaciones de inicio y mejorando la seguridad del sistema.`,
+    description: `Optimiza el rendimiento de tu PC.`,
     download: 'https://ranoz.gg/file/BptQQEgg',
     mirrors: []
   },
@@ -170,7 +343,7 @@ const APPS = [
     size: '60 MB',
     cover: 'assets/img/magis.png',
     tags: ['iptv', 'tv', 'series', 'películas', 'anime'],
-    description: `Disfrutá de TV en vivo, series, películas y anime directamente en tu celular.`,
+    description: `TV en vivo, series, películas y anime en tu celular.`,
     download: 'https://srtslug.biz/8b9Gp',
     mirrors: []
   },
@@ -182,7 +355,7 @@ const APPS = [
     size: '65 MB',
     cover: 'assets/img/magis.png',
     tags: ['iptv', 'tv', 'canales', 'series', 'películas'],
-    description: `Disfrutá de más de 1300 canales en vivo, películas y series sin interrupciones.`,
+    description: `Más de 1300 canales en vivo, películas y series.`,
     download: 'https://srtslug.biz/8b9Gt',
     mirrors: []
   },
@@ -194,7 +367,7 @@ const APPS = [
     size: '150 MB',
     cover: 'assets/img/menu.jpg',
     tags: ['windows', 'optimización', 'herramientas', 'limpieza'],
-    description: `Este menú especial para Windows incluye aplicaciones portables, instaladores, limpiador de registros y optimizadores, todo en un solo paquete.`,
+    description: `Incluye portables, instaladores y optimizadores.`,
     download: 'https://srtslug.biz/8b9GB',
     mirrors: []
   },
@@ -206,7 +379,7 @@ const APPS = [
     size: '1.5 GB',
     cover: 'assets/img/office.png',
     tags: ['office', 'productividad', 'word', 'excel', 'powerpoint'],
-    description: `Elegí la versión que más te guste de Microsoft Office e instalala de forma rápida y sencilla.`,
+    description: `Instala la versión de Office que prefieras.`,
     download: 'https://srtslug.biz/offc25',
     mirrors: []
   },
@@ -218,7 +391,7 @@ const APPS = [
     size: '80 MB',
     cover: 'assets/img/logitech.png',
     tags: ['logitech', 'drivers', 'teclado', 'mouse'],
-    description: `Instalá el programa oficial de Logitech para gestionar la memoria integrada de tus periféricos.`,
+    description: `Programa oficial de Logitech para memoria integrada.`,
     download: 'https://ranoz.gg/file/m8Kip40v',
     mirrors: []
   },
@@ -230,7 +403,7 @@ const APPS = [
     size: '40 MB',
     cover: 'assets/img/pixelcut.png',
     tags: ['diseño', 'edición', 'fotos', 'creatividad'],
-    description: `Descargá PixelCut para crear diseños y ediciones de forma rápida y profesional.`,
+    description: `Diseños y ediciones rápidas y profesionales.`,
     download: 'https://srtslug.biz/pixlct',
     mirrors: []
   },
@@ -242,7 +415,7 @@ const APPS = [
     size: '45 MB',
     cover: 'assets/img/remini.png',
     tags: ['fotos', 'inteligencia-artificial', 'mejorar', 'edición'],
-    description: `Descargá Remini y mejorá tus fotos con inteligencia artificial de manera fácil y rápida.`,
+    description: `Mejorá tus fotos con IA.`,
     download: 'https://www.mediafire.com/file/85tpbwhqcdvsb3d/Remini_v3.7.1070.2025.apk/file',
     mirrors: []
   },
@@ -254,7 +427,7 @@ const APPS = [
     size: '20 MB',
     cover: 'assets/img/darkplay.png',
     tags: ['películas', 'series', 'streaming', 'gratis'],
-    description: `Mira series y películas gratis con la última versión de Dark Play.`,
+    description: `Series y películas gratis con la última versión.`,
     download: 'https://srtslug.biz/8b9Gc',
     mirrors: []
   },
@@ -266,7 +439,7 @@ const APPS = [
     size: '3 GB',
     cover: 'https://i.ytimg.com/vi/XsAyJpx4STM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCtGWVDvhuOLmdYzZ7ub3YQdp3Xtg',
     tags: ['windows', 'lite', 'optimización', 'bajo-recursos'],
-    description: `Windows Tiny11 es una versión ligera de Windows 11 que elimina el bloatware y no requiere altos recursos de hardware, ofreciendo una experiencia rápida incluso en PCs antiguos.`,
+    description: `Versión ligera que elimina bloatware y reduce requisitos.`,
     download: 'https://shrtlk.click/tn11',
     mirrors: []
   },
@@ -278,7 +451,7 @@ const APPS = [
     size: '3.15 GB',
     cover: 'assets/img/winxlite.png',
     tags: ['windows', 'lite', 'gaming', 'rendimiento', 'optimización', 'bajo-recursos'],
-    description: `Windows X Lite es una edición ultraligera de Windows 11 pensada para máximo rendimiento. Elimina bloatware, reduce servicios en segundo plano y ajusta el sistema para menor latencia, mejor uso de CPU/RAM y arranques más rápidos. Ideal para juegos, streaming, creación de contenido y PCs de bajos recursos.`,
+    description: `Edición ultraligera enfocada en rendimiento.`,
     download: 'https://shrtlk.click/winxlite',
     mirrors: []
   },
@@ -290,7 +463,7 @@ const APPS = [
     size: '15 MB',
     cover: 'assets/img/life360.jpg',
     tags: ['familia', 'seguridad', 'gps', 'rastreo', 'alertas', 'sos'],
-    description: `Life360 es una app de seguridad familiar con seguimiento GPS en tiempo real. Creá círculos privados, definí áreas seguras y recibí alertas de llegada/salida. Incluye historial de ubicaciones, chat entre miembros, botón SOS, detección de incidentes de manejo y reportes de conducción, ideal para cuidar a tu familia y coordinar encuentros.`,
+    description: `Seguimiento GPS, alertas y seguridad familiar.`,
     download: 'https://stly.link/lf360prem',
     mirrors: []
   },
@@ -302,7 +475,7 @@ const APPS = [
     size: '47 MB',
     cover: 'https://apkmody.com/wp-content/uploads/2022/05/Deezer-MOD-APK-cover-APKMODY-COM.jpg',
     tags: ['música', 'streaming', 'premium', 'mod', 'offline'],
-    description: `Deezer Premium MOD te permite disfrutar de toda tu música favorita sin límites. Accedé a más de 90 millones de canciones, playlists y podcasts, con funciones premium desbloqueadas como descargas offline, audio de alta calidad, sin anuncios y saltos de pista ilimitados.`,
+    description: `Música sin límites, descargas offline y sin anuncios.`,
     download: 'https://stly.link/dserprem',
     mirrors: []
   },
@@ -314,7 +487,7 @@ const APPS = [
     size: '60 MB',
     cover: 'https://cdn.adtidy.org/blog/2019/03/cover_android3_0.jpg',
     tags: ['bloqueo de anuncios', 'privacidad', 'seguridad', 'DNS', 'HTTPS', 'firewall'],
-    description: `AdGuard Premium bloquea anuncios, pop-ups y rastreadores en apps y navegadores. Ofrece filtrado HTTPS, DNS seguro, reglas por aplicación, listas personalizadas y modo sigiloso para proteger tu privacidad y reducir consumo de datos y batería. Incluye firewall y filtros avanzados para una navegación limpia.`,
+    description: `Bloquea anuncios, rastreadores y protege tu privacidad.`,
     download: 'https://stly.link/adgrdprem',
     mirrors: []
   },
@@ -326,7 +499,7 @@ const APPS = [
     size: '54 MB',
     cover: 'https://play-lh.googleusercontent.com/bZcnF_cQg7JJfzX9VaQzJqDtqyHVwT5gV4hoUd9u1FiB9Cam4wQMb8QPo58DIuZYuVs',
     tags: ['email temporal', 'privacidad', 'antispam', 'anónimo', 'seguridad'],
-    description: `Temp Mail Premium crea correos temporales para proteger tu identidad y evitar spam. Recibí códigos de verificación y mensajes sin exponer tu email real. Funciones Premium: múltiples direcciones, mayor tiempo de vida, historial extendido, adjuntos, notificaciones push y sin anuncios.`,
+    description: `Correos temporales para evitar spam y proteger identidad.`,
     download: 'https://stly.link/tmpmail',
     mirrors: []
   },
@@ -338,7 +511,7 @@ const APPS = [
     size: '36 MB',
     cover: 'https://apkrabi.com/uploads/2023/9/movies-plus-thumbnail.jpg',
     tags: ['películas', 'series', 'streaming', 'hd', 'entretenimiento'],
-    description: `Movie Plus ofrece un amplio catálogo de películas y series con reproducción rápida y estable. Incluye calidad HD/Full HD, subtítulos, búsqueda por género, lista de favoritos, reproductor integrado y soporte de casting para ver en la TV.`,
+    description: `Catálogo amplio en HD/Full HD con casting a TV.`,
     download: 'https://stly.link/movieplus',
     mirrors: []
   },
@@ -350,7 +523,7 @@ const APPS = [
     size: '85 MB',
     cover: 'assets/img/chatgpt.jpg',
     tags: ['IA', 'chatbot', 'voz', 'texto', 'asistente', 'gpt'],
-    description: `AI Chat es un software de Inteligencia Artificial capaz de mantener conversaciones en tiempo real por texto o voz. Basado en redes neuronales tipo GPT-4, ofrece respuestas contextuales, dictado/lectura por voz, historial, plantillas para tareas y un modo rápido para consultas frecuentes.`,
+    description: `Chat con IA, dictado/lectura y plantillas.`,
     download: 'https://stly.link/chatsm',
     mirrors: []
   },
@@ -362,7 +535,7 @@ const APPS = [
     size: '25 MB',
     cover: 'assets/img/play.jpg',
     tags: ['películas', 'series', 'anime', 'streaming', 'hd', 'chromecast'],
-    description: `PlayHub+ es una app para ver películas, series y anime en HD con reproducción rápida. Ofrece un amplio catálogo y posibilidad de transmitir a la TV mediante Chromecast.`,
+    description: `Películas, series y anime en HD con Chromecast.`,
     download: 'https://stly.link/playhb',
     mirrors: []
   },
@@ -374,7 +547,7 @@ const APPS = [
     size: '26 MB',
     cover: 'assets/img/snap.jpg',
     tags: ['video', 'música', 'descargas', 'youtube', 'facebook', 'android'],
-    description: `Snaptube VIP permite ver y descargar videos y música desde YouTube, Facebook y otras plataformas. Incluye buscador integrado, conversión a MP3/MP4, diferentes resoluciones, gestor de descargas y reproducción en segundo plano.`,
+    description: `Descargá videos y música de múltiples plataformas.`,
     download: 'https://stly.link/snapt',
     mirrors: []
   },
@@ -386,7 +559,7 @@ const APPS = [
     size: '74 MB',
     cover: 'assets/img/photo.jpg',
     tags: ['fotos', 'edición', 'remove bg', 'ecommerce', 'diseño'],
-    description: `Con un toque eliminá el fondo y creá imágenes limpias para productos o retratos. Elegí fondo blanco o personalizado, corregí iluminación, agregá texto/logos, pegatinas y armá collages. Ideal para catálogos, redes y tiendas online.`,
+    description: `Eliminá el fondo y creá imágenes limpias.`,
     download: 'https://stly.link/photorm',
     mirrors: []
   },
@@ -398,7 +571,7 @@ const APPS = [
     size: '2.6 GB',
     cover: 'https://gtasanandreasapk.org/wp-content/uploads/2024/09/Gta-san-andreas-mod-apk-download.webp',
     tags: ['juego', 'acción', 'mundo abierto', 'clásico', 'offline'],
-    description: `Vive la historia de CJ en un mundo abierto enorme con misiones principales y secundarias, conducción, combate y personalización. Optimizado para móviles con controles táctiles y soporte para jugar sin conexión.`,
+    description: `Historia de CJ en mundo abierto, optimizado en móvil.`,
     download: 'https://srtslug.biz/gtasanand',
     mirrors: []
   },
@@ -410,7 +583,7 @@ const APPS = [
     size: '153 MB',
     cover: 'https://i.ytimg.com/vi/aEnMi1RM8ZI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCrzflpkVoHCFJhyt5apr2dPxvSog',
     tags: ['juego', 'arcade', 'runner', 'mod', 'offline'],
-    description: `Corre por vías y azoteas esquivando trenes y obstáculos en este clásico endless runner. La versión MOD incluye ventajas/desbloqueos para progresar más rápido, eventos por temporadas, misiones diarias y personalización de tablas y personajes.`,
+    description: `Clásico runner con ventajas MOD.`,
     download: 'https://stly.link/subwysurf',
     mirrors: []
   },
@@ -422,7 +595,7 @@ const APPS = [
     size: '35 MB',
     cover: 'https://media.imgcdn.org/repo/2023/03/youcam-perfect-photo-editor/youcam-perfect-photo-editor-free-download.jpg',
     tags: ['fotos', 'edición', 'selfie', 'filtros', 'retoque', 'belleza'],
-    description: `Editor de fotos para selfies con herramientas de retoque rápido: suavizado de piel, eliminación de imperfecciones, blanqueo dental, remodelado sutil, recorte y desenfoque de fondo, efectos, filtros y collages. Ideal para crear retratos profesionales en segundos.`,
+    description: `Retoque rápido para selfies y efectos.`,
     download: 'https://stly.link/youcam',
     mirrors: []
   },
@@ -434,7 +607,7 @@ const APPS = [
     size: '49 MB',
     cover: 'assets/img/proton.jpg',
     tags: ['vpn', 'privacidad', 'seguridad', 'netshield', 'wireguard', 'kill switch', 'streaming'],
-    description: `Proton VPN Premium ofrece navegación segura y sin registros, cifrado de nivel militar y NetShield para bloquear anuncios y rastreadores. Incluye Secure Core (doble salto), split tunneling, kill switch y soporte para WireGuard/OpenVPN. Ideal para streaming, gaming y protegerte en redes Wi-Fi públicas.`,
+    description: `VPN premium con NetShield, split tunneling y más.`,
     download: 'https://srtslug.biz/8bknt',
     mirrors: []
   },
@@ -446,7 +619,7 @@ const APPS = [
     size: '30 MB',
     cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-ScHESNYKXuUZ9aJleq1pbAsgGY56EKnZQ&s',
     tags: ['juego', 'tower defense', 'estrategia', 'mod', 'offline', 'clásico'],
-    description: `Defendé tu jardín en el clásico tower defense con plantas, poderes y mundos temáticos. La edición MOD suele incluir ventajas/desbloqueos para acelerar la progresión (puede variar según el build). Ideal para partidas rápidas offline y completar eventos por tiempo.`,
+    description: `Defendé tu jardín con plantas y poderes.`,
     download: 'https://ranoz.gg/file/6BWd4Q7q',
     mirrors: []
   },
@@ -458,7 +631,7 @@ const APPS = [
     size: '40 MB',
     cover: 'https://content-hub.wlp.app/vpn/wp-content/uploads/sites/2/2024/06/tela-latino-cuenta-completa-1mes-e1718293663105.jpg',
     tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming'],
-    description: `App de IPTV con TV en vivo, películas y series enfocada en contenido latino. Ofrece reproducción rápida en HD, servidores estables, buscador, favoritos, guía/EPG, subtítulos y soporte para Chromecast.`,
+    description: `IPTV con TV en vivo, películas y series.`,
     download: 'https://stly.link/telelatmobile',
     mirrors: []
   },
@@ -470,7 +643,7 @@ const APPS = [
     size: '35 MB',
     cover: 'https://akyhay.com/wp-content/uploads/2022/07/tele-latino.jpg',
     tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming', 'android tv'],
-    description: `Edición optimizada para Android TV y TV Box. Interfaz para control remoto, navegación por categorías, guía/EPG, búsqueda, favoritos y reproducción estable en HD/Full HD con subtítulos. Ideal para ver canales latinos, películas y series directamente en la TV.`,
+    description: `Edición optimizada para Android TV y TV Box.`,
     download: 'https://stly.link/telelatTV',
     mirrors: []
   },
@@ -482,7 +655,7 @@ const APPS = [
     size: '285 MB',
     cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ_9Zwf08iY6UtBYcEtYPwmzHpmZrLhgNETQ&s',
     tags: ['video', 'edición', 'plantillas', 'transiciones', '4k', 'chroma key', 'captions', 'velocidad'],
-    description: `Editor de video completo con plantillas, efectos, transiciones y filtros. Soporta exportación en HD/4K, edición por capas, keyframes, cámara lenta/velocidad, eliminación de fondo (chroma), auto-subtítulos y sincronización con música. Versión Premium sin marcas de agua y con recursos desbloqueados.`,
+    description: `Editor de video con plantillas, efectos y 4K.`,
     download: 'https://stly.link/capcuttt',
     mirrors: []
   },
@@ -494,7 +667,7 @@ const APPS = [
     size: '82 MB',
     cover: 'https://shop.aedigi.com/wp-content/uploads/tai-khoan-picsart-pro-scaled.png',
     tags: ['fotos', 'edición', 'filtros', 'efectos', 'collage', 'IA'],
-    description: `Editor todo en uno para fotos y videos con filtros, efectos, stickers, collages, texto y pinceles. Incluye herramientas de IA: eliminación de fondo/objetos, retoque automático, estilos “Magic” y plantillas premium. Exportá en alta calidad sin marca de agua.`,
+    description: `Editor todo en uno para fotos y videos.`,
     download: 'https://stfly.vip/picpro',
     mirrors: []
   },
@@ -506,187 +679,181 @@ const APPS = [
     size: '31 MB',
     cover: 'https://apkomtk.com/wp-content/uploads/2025/04/PPSSPP-Gold-PSP-emulator-APK.jpg',
     tags: ['emulador', 'psp', 'juegos', '60fps', 'save states', 'gamepad', 'vulkan'],
-    description: `Emulador PSP de alto rendimiento para Android con amplia compatibilidad. Ofrece escalado de resolución, filtros, control táctil personalizable, soporte para gamepad, guardado rápido (save states), carga de texturas y motores Vulkan/OpenGL para mayor fluidez a 60 FPS.`,
+    description: `Emulador PSP de alto rendimiento.`,
     download: 'https://stfly.vip/ppsspp',
     mirrors: []
   },
-{
-  slug: 'logowiz-108-0-premium',
-  title: 'LogoWiz v108.0 [Premium Features Unlocked]',
-  platform: 'Android',
-  version: '108.0',
-  size: '42.8 MB',
-  cover: 'https://blogger.googleusercontent.com/img/a/AVvXsEjSzalQ9hcqyGyEy46wRtsAuWcOHKBk06Vma2SDz89unwgBy1yKhbqdY2jvG7ly1KvkQ-H8JiALEgrYy8aTwTY4SVKKHcAtcGv3q7rr90pJCwl9-CiY1PUkhjeZwJpj4p5gO2kTWMm_1MYg0Akfe_G6vmkx2fE1inEka1rOKaX6_zEeVSxcGx6wF1DZAX4=s480',
-  tags: ['logo maker', 'diseño', 'marca', 'plantillas', 'iconos', 'tipografías', 'png transparente'],
-  description: `Creador de logos con miles de plantillas, iconos y fuentes listos para editar. Ajustá colores, sombras y capas, eliminá fondo y exportá en alta calidad con fondo transparente para redes, tiendas y branding. Versión Premium con recursos desbloqueados y sin marcas de agua.`,
-  download: 'https://stly.link/logwiz',
-  mirrors: []
-},
-
-{
-  slug: 'whatsapp-plus-vctm-2-0-0-yesiimods',
-  title: 'WhatsApp Plus VCTM v2.0.0 (YesiiMods)',
-  platform: 'Android',
-  version: '2.0.0',
-  size: '153.3 MB',
-  cover: 'assets/img/whatyes.jpg',
-  tags: ['mensajería', 'whatsapp', 'mod', 'temas', 'personalización', 'privacidad'],
-  description: `Versión modificada de WhatsApp con opciones extra de privacidad y personalización: ocultar estados/ticks, temas y estilos, control de descargas, envío de archivos grandes y ajustes visuales avanzados. Ideal para quien busca más control y apariencia que en la app oficial.`,
-  download: 'https://stly.link/whatyes',
-  mirrors: []
-},
-{
-  slug: 'magistv-tv-apk',
-  title: 'MagisTV – Versión TV',
-  platform: 'Android/TV',
-  version: 'TV',
-  size: '34 MB',
-  cover: 'assets/img/magistvtv.png',
-  tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'streaming', 'android tv', 'tv box'],
-  description: `Edición optimizada para Android TV y TV Box: interfaz para control remoto, navegación por categorías, guía/EPG, búsqueda, favoritos y reproducción estable en HD/Full HD con subtítulos. Ideal para ver canales en vivo, películas y series directamente en la TV.`,
-  download: 'https://stly.link/mgtvtv',
-  mirrors: []
-},
-{
-  slug: 'my-talking-tom-mod-7-1-4-2471',
-  title: 'My Talking Tom v7.1.4.2471 [MOD]',
-  platform: 'Android',
-  version: '7.1.4.2471',
-  size: '108 MB',
-  cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLPwgyochlf4Ozksa4Sg4XG2adNWUr84nKYA&s',
-  tags: ['juego', 'mascota virtual', 'simulación', 'minijuegos', 'mod', 'offline'],
-  description: `Cuida a Tom, dale de comer, bañalo y decorá su casa mientras completás minijuegos y desbloqueás ropa y accesorios. La versión MOD suele incluir monedas/objetos desbloqueados para progresar más rápido (puede variar según el build).`,
-  download: 'https://stly.link/mytlktom',
-  mirrors: []
-},
-{
-  slug: 'instagram-246-1-0-16-113',
-  title: 'Instagram v246.1.0.16.113',
-  platform: 'Android',
-  version: '246.1.0.16.113',
-  size: '50 MB',
-  cover: 'assets/img/insta.png',
-  tags: ['social', 'fotos', 'videos', 'reels', 'stories', 'mensajes'],
-  description: `Comparte fotos y videos, crea Reels y Stories con música, filtros y efectos. Incluye mensajes privados y canales, transmisiones en vivo, estadísticas para creadores y opciones de edición avanzadas.`,
-  download: 'https://stly.link/instaprov2',
-  mirrors: []
-},
-{
-  slug: 'youtube-music-mod-8-34-51',
-  title: 'YouTube Music v8.34.51 [MOD]',
-  platform: 'Android',
-  version: '8.34.51',
-  size: '67 MB',
-  cover: 'https://indiehoy.com/wp-content/uploads/2020/01/youtubepremium-youtubemusic.png',
-  tags: ['música', 'streaming', 'youtube', 'premium', 'mod', 'offline', 'segundo plano'],
-  description: `Disfrutá YouTube Music sin anuncios y con funciones premium: reproducción en segundo plano/pantalla apagada, modo solo audio, descargas para escuchar offline, salto ilimitado y audio de alta calidad. (Las funciones pueden variar según el build).`,
-  download: 'https://stfly.vip/ytmus',
-  mirrors: []
-},
-{
-  slug: 'shotcut-pro-2-18-0',
-  title: 'ShotCut v2.18.0 [Pro]',
-  platform: 'Android',
-  version: '2.18.0',
-  size: '135.4 MB',
-  cover: 'https://i.ytimg.com/vi/2_lQMGwtqf8/hqdefault.jpg',
-  tags: ['video', 'edición', 'plantillas', 'transiciones', 'filtros', 'pro'],
-  description: `Editor de video móvil con herramientas Pro: edición por capas, recorte, velocidad (slow/fast), transiciones y filtros, música/FX, texto y stickers, exportación en HD/Full HD y sin marcas de agua en la versión Pro. Ideal para reels, shorts y videos para redes.`,
-  download: 'https://stfly.vip/8byPt',
-  mirrors: []
-},
-{
-  slug: 'youtube-revanced-20-13-41',
-  title: 'YouTube ReVanced v20.13.41',
-  platform: 'Android',
-  version: '20.13.41',
-  size: '167 MB',
-  cover: 'https://cdn.thinkkers.com/wp-content/uploads/2022/08/Youtube-ReVanced-Apk.jpg',
-  tags: ['video', 'youtube', 'mod', 'sin anuncios', 'segundo plano', 'pip', 'sponsorblock'],
-  description: `Cliente mod de YouTube con funciones tipo premium: sin anuncios, reproducción en segundo plano/pantalla apagada, Picture-in-Picture, controles avanzados y SponsorBlock integrado. Puede requerir microG para iniciar sesión. (Las funciones exactas dependen del build).`,
-  download: 'https://stfly.vip/ytrevan',
-  mirrors: []
-},
-{
-  slug: 'ad-blocker-pro-6-5-1-premium',
-  title: 'Ad Blocker Pro v6.5.1 [Premium Features Unlocked]',
-  platform: 'Android',
-  version: '6.5.1',
-  size: '15 MB',
-  cover: 'https://images.squarespace-cdn.com/content/v1/54e310f0e4b0f4a6ba3ac899/47c70f4f-c5bb-4381-bcbf-90f2b94add5f/Ad-blocker.jpg',
-  tags: ['bloqueo de anuncios', 'privacidad', 'rastreo', 'antipopups', 'filtros', 'seguridad'],
-  description: `Bloquea anuncios en apps y navegador, elimina pop-ups y rastreadores, y aplica listas de filtros personalizadas. Mejora la privacidad, reduce consumo de datos/batería y acelera la carga de páginas. Incluye reglas por app y soporte para listas avanzadas en la versión Premium.`,
-  download: 'https://stfly.vip/8byQy',
-  mirrors: []
-},
-{
-  slug: 'xy-vpn-4-9-947-premium',
-  title: 'XY VPN v4.9.947 [Premium Features Unlocked]',
-  platform: 'Android',
-  version: '4.9.947',
-  size: '30 MB',
-  cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTERg4etch1ivkT4goyxnPlQYezoOdLAEI17Q&s',
-  tags: ['vpn', 'privacidad', 'seguridad', 'servidores globales', 'sin anuncios', 'kill switch'],
-  description: `XY VPN Premium protege tu conexión con cifrado y política sin registros, desbloquea contenido georrestringido y ofrece servidores de alta velocidad para streaming y juegos. Incluye selección inteligente de servidor, modo automático, datos ilimitados y navegación sin anuncios.`,
-  download: 'https://stfly.vip/8byR3',
-  mirrors: []
-},
-{
-  slug: 'windows-11-showos-pro-1-0',
-  title: 'Windows 11 ShowOS Pro v1.0 (MediaFire)',
-  platform: 'Windows',
-  version: '1.0',
-  size: '4.04 GB',
-  cover: 'https://i.ytimg.com/vi/yDiQ4442vbs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAOEr4M8RLJZGivVjZ5XgUdTgrUNA',
-  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
-  description: `ShowOS Pro es una edición personalizada de Windows 11 enfocada en velocidad y fluidez. Reduce bloatware y telemetría, ajusta servicios en segundo plano y aplica tweaks para menor latencia, arranques más rápidos y mejor respuesta en juegos. Ideal para gaming, streaming y uso diario en PCs de bajos o altos recursos.`,
-  download: 'https://srtslug.biz/8byTV',
-  mirrors: []
-},
-{
-  slug: 'windows-11-showos-pro-1-0',
-  title: 'Windows 11 ShowOS Pro v1.0 (Mega)',
-  platform: 'Windows',
-  version: '1.0',
-  size: '4.04 GB',
-  cover: 'https://i.ytimg.com/vi/yDiQ4442vbs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAOEr4M8RLJZGivVjZ5XgUdTgrUNA',
-  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
-  description: `ShowOS Pro es una edición personalizada de Windows 11 enfocada en velocidad y fluidez. Reduce bloatware y telemetría, ajusta servicios en segundo plano y aplica tweaks para menor latencia, arranques más rápidos y mejor respuesta en juegos. Ideal para gaming, streaming y uso diario en PCs de bajos o altos recursos.`,
-  download: 'https://srtslug.biz/8byVh',
-  mirrors: []
-},
-{
-  slug: 'winteros-rev14-w11pro-24h2',
-  title: 'WinterOS Rev14 – Windows 11 Pro 24H2',
-  platform: 'Windows',
-  version: 'Rev14 (24H2)',
-  size: '4.3 GB',
-  cover: 'https://i.ytimg.com/vi/_GXmqTzSs9I/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAvtmpgR58xlhb5edIkmVBmndp2Tw',
-  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
-  description: `WinterOS Rev14 es una edición personalizada de Windows 11 Pro 24H2 enfocada en rendimiento: menos bloatware y telemetría, servicios ajustados, mejor respuesta de CPU/GPU y menor latencia. Ideal para gaming, streaming y equipos de bajos o altos recursos.`,
-  download: 'https://srtslug.biz/8byXr',
-  mirrors: []
-},
-{
-  slug: 'winteros-w11-24h2pro-rev15',
-  title: 'WinterOS W11 v24H2PRO Rev15',
-  platform: 'Windows',
-  version: 'Rev15 (24H2 Pro)',
-  size: '4.5 GB',
-  cover: 'https://i.ytimg.com/vi/gc5c3A6wn_o/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDRyV2l0y2lYdWtA3p0C-HQYVo_sg',
-  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
-  description: `Edición personalizada de Windows 11 24H2 orientada a rendimiento y baja latencia: menos bloatware y telemetría, servicios ajustados, tiempos de arranque reducidos y mejor respuesta en juegos/streaming. Ideal para PCs de bajos o altos recursos.`,
-  download: 'https://srtslug.biz/8byZh',
-  mirrors: []
-},
-
-
-
-
-
-
-
+  {
+    slug: 'logowiz-108-0-premium',
+    title: 'LogoWiz v108.0 [Premium Features Unlocked]',
+    platform: 'Android',
+    version: '108.0',
+    size: '42.8 MB',
+    cover: 'https://blogger.googleusercontent.com/img/a/AVvXsEjSzalQ9hcqyGyEy46wRtsAuWcOHKBk06Vma2SDz89unwgBy1yKhbqdY2jvG7ly1KvkQ-H8JiALEgrYy8aTwTY4SVKKHcAtcGv3q7rr90pJCwl9-CiY1PUkhjeZwJpj4p5gO2kTWMm_1MYg0Akfe_G6vmkx2fE1inEka1rOKaX6_zEeVSxcGx6wF1DZAX4=s480',
+    tags: ['logo maker', 'diseño', 'marca', 'plantillas', 'iconos', 'tipografías', 'png transparente'],
+    description: `Creador de logos con miles de plantillas.`,
+    download: 'https://stly.link/logwiz',
+    mirrors: []
+  },
+  {
+    slug: 'whatsapp-plus-vctm-2-0-0-yesiimods',
+    title: 'WhatsApp Plus VCTM v2.0.0 (YesiiMods)',
+    platform: 'Android',
+    version: '2.0.0',
+    size: '153.3 MB',
+    cover: 'assets/img/whatyes.jpg',
+    tags: ['mensajería', 'whatsapp', 'mod', 'temas', 'personalización', 'privacidad'],
+    description: `Más privacidad y personalización que la app oficial.`,
+    download: 'https://stly.link/whatyes',
+    mirrors: []
+  },
+  {
+    slug: 'magistv-tv-apk',
+    title: 'MagisTV – Versión TV',
+    platform: 'Android/TV',
+    version: 'TV',
+    size: '34 MB',
+    cover: 'assets/img/magistvtv.png',
+    tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'streaming', 'android tv', 'tv box'],
+    description: `Optimizada para Android TV y TV Box.`,
+    download: 'https://stly.link/mgtvtv',
+    mirrors: []
+  },
+  {
+    slug: 'my-talking-tom-mod-7-1-4-2471',
+    title: 'My Talking Tom v7.1.4.2471 [MOD]',
+    platform: 'Android',
+    version: '7.1.4.2471',
+    size: '108 MB',
+    cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLPwgyochlf4Ozksa4Sg4XG2adNWUr84nKYA&s',
+    tags: ['juego', 'mascota virtual', 'simulación', 'minijuegos', 'mod', 'offline'],
+    description: `Cuida a Tom, minijuegos y personalización.`,
+    download: 'https://stly.link/mytlktom',
+    mirrors: []
+  },
+  {
+    slug: 'instagram-246-1-0-16-113',
+    title: 'Instagram v246.1.0.16.113',
+    platform: 'Android',
+    version: '246.1.0.16.113',
+    size: '50 MB',
+    cover: 'assets/img/insta.png',
+    tags: ['social', 'fotos', 'videos', 'reels', 'stories', 'mensajes'],
+    description: `Reels, Stories, DM, vivos y edición avanzada.`,
+    download: 'https://stly.link/instaprov2',
+    mirrors: []
+  },
+  {
+    slug: 'youtube-music-mod-8-34-51',
+    title: 'YouTube Music v8.34.51 [MOD]',
+    platform: 'Android',
+    version: '8.34.51',
+    size: '67 MB',
+    cover: 'https://indiehoy.com/wp-content/uploads/2020/01/youtubepremium-youtubemusic.png',
+    tags: ['música', 'streaming', 'youtube', 'premium', 'mod', 'offline', 'segundo plano'],
+    description: `Sin anuncios, segundo plano y descargas offline.`,
+    download: 'https://stfly.vip/ytmus',
+    mirrors: []
+  },
+  {
+    slug: 'shotcut-pro-2-18-0',
+    title: 'ShotCut v2.18.0 [Pro]',
+    platform: 'Android',
+    version: '2.18.0',
+    size: '135.4 MB',
+    cover: 'https://i.ytimg.com/vi/2_lQMGwtqf8/hqdefault.jpg',
+    tags: ['video', 'edición', 'plantillas', 'transiciones', 'filtros', 'pro'],
+    description: `Editor Pro para móvil sin marcas de agua.`,
+    download: 'https://stfly.vip/8byPt',
+    mirrors: []
+  },
+  {
+    slug: 'youtube-revanced-20-13-41',
+    title: 'YouTube ReVanced v20.13.41',
+    platform: 'Android',
+    version: '20.13.41',
+    size: '167 MB',
+    cover: 'https://cdn.thinkkers.com/wp-content/uploads/2022/08/Youtube-ReVanced-Apk.jpg',
+    tags: ['video', 'youtube', 'mod', 'sin anuncios', 'segundo plano', 'pip', 'sponsorblock'],
+    description: `Cliente mod con PiP, background y SponsorBlock.`,
+    download: 'https://stfly.vip/ytrevan',
+    mirrors: []
+  },
+  {
+    slug: 'ad-blocker-pro-6-5-1-premium',
+    title: 'Ad Blocker Pro v6.5.1 [Premium Features Unlocked]',
+    platform: 'Android',
+    version: '6.5.1',
+    size: '15 MB',
+    cover: 'https://images.squarespace-cdn.com/content/v1/54e310f0e4b0f4a6ba3ac899/47c70f4f-c5bb-4381-bcbf-90f2b94add5f/Ad-blocker.jpg',
+    tags: ['bloqueo de anuncios', 'privacidad', 'rastreo', 'antipopups', 'filtros', 'seguridad'],
+    description: `Bloquea anuncios/popups y mejora privacidad.`,
+    download: 'https://stfly.vip/8byQy',
+    mirrors: []
+  },
+  {
+    slug: 'xy-vpn-4-9-947-premium',
+    title: 'XY VPN v4.9.947 [Premium Features Unlocked]',
+    platform: 'Android',
+    version: '4.9.947',
+    size: '30 MB',
+    cover: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTERg4etch1ivkT4goyxnPlQYezoOdLAEI17Q&s',
+    tags: ['vpn', 'privacidad', 'seguridad', 'servidores globales', 'sin anuncios', 'kill switch'],
+    description: `Cifrado, servidores rápidos y datos ilimitados.`,
+    download: 'https://stfly.vip/8byR3',
+    mirrors: []
+  },
+  {
+    slug: 'windows-11-showos-pro-1-0',
+    title: 'Windows 11 ShowOS Pro v1.0 (MediaFire)',
+    platform: 'Windows',
+    version: '1.0',
+    size: '4.04 GB',
+    cover: 'https://i.ytimg.com/vi/yDiQ4442vbs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAOEr4M8RLJZGivVjZ5XgUdTgrUNA',
+    tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
+    description: `Edición personalizada enfocada en rendimiento.`,
+    download: 'https://srtslug.biz/8byTV',
+    mirrors: []
+  },
+  {
+    slug: 'windows-11-showos-pro-1-0',
+    title: 'Windows 11 ShowOS Pro v1.0 (Mega)',
+    platform: 'Windows',
+    version: '1.0',
+    size: '4.04 GB',
+    cover: 'https://i.ytimg.com/vi/yDiQ4442vbs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAOEr4M8RLJZGivVjZ5XgUdTgrUNA',
+    tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
+    description: `Edición personalizada enfocada en rendimiento.`,
+    download: 'https://srtslug.biz/8byVh',
+    mirrors: []
+  },
+  {
+    slug: 'winteros-rev14-w11pro-24h2',
+    title: 'WinterOS Rev14 – Windows 11 Pro 24H2',
+    platform: 'Windows',
+    version: 'Rev14 (24H2)',
+    size: '4.3 GB',
+    cover: 'https://i.ytimg.com/vi/_GXmqTzSs9I/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAvtmpgR58xlhb5edIkmVBmndp2Tw',
+    tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
+    description: `Enfocada en rendimiento y baja latencia.`,
+    download: 'https://srtslug.biz/8byXr',
+    mirrors: []
+  },
+  {
+    slug: 'winteros-w11-24h2pro-rev15',
+    title: 'WinterOS W11 v24H2PRO Rev15',
+    platform: 'Windows',
+    version: 'Rev15 (24H2 Pro)',
+    size: '4.5 GB',
+    cover: 'https://i.ytimg.com/vi/gc5c3A6wn_o/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDRyV2l0y2lYdWtA3p0C-HQYVo_sg',
+    tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
+    description: `24H2 Pro con ajustes de rendimiento.`,
+    download: 'https://srtslug.biz/8byZh',
+    mirrors: []
+  },
 ];
+window.APPS = APPS;
+
 
 // ==========================
 // UTILIDADES
@@ -695,21 +862,50 @@ const $ = (sel, ctx=document) => ctx.querySelector(sel);
 const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
 
 const bySlug = (slug) => APPS.find(a => a.slug === slug);
-const getDownloadUrl = (app) => {
-  if (SITE.downloadEndpoint) return `${SITE.downloadEndpoint}${encodeURIComponent(app.slug)}`;
-  return app.download;
-};
+const getDownloadUrl = (app) => SITE.downloadEndpoint ? `${SITE.downloadEndpoint}${encodeURIComponent(app.slug)}` : app.download;
 
 const fmtTags = (tags=[]) => tags.map(t => `<span class="text-xs rounded-full border border-slate-700 px-2 py-0.5">${t}</span>`).join('');
 
 const saveUnlock = (slug) => localStorage.setItem(`unlock_${slug}`, Date.now());
 const isUnlocked = (slug) => !!localStorage.getItem(`unlock_${slug}`);
 
+// Categoría automática para el filtro
+function deriveCategory(app) {
+  const tags = (app.tags || []).map(t => t.toLowerCase());
+  const title = (app.title || '').toLowerCase();
+  const platform = (app.platform || '').toLowerCase();
+
+  const gameHints = ['juego','juegos','arcade','runner','acción','mundo abierto','estrategia','tower defense'];
+  if (tags.some(t => gameHints.includes(t))) return 'juegos';
+
+  if (platform.startsWith('windows')) {
+    const isOS =
+      tags.includes('lite') ||
+      tags.includes('bajo-recursos') ||
+      title.includes('tiny') ||
+      title.includes('x lite') ||
+      title.includes('versión lite');
+    return isOS ? 'sistemas' : 'programas';
+  }
+  return 'aplicaciones';
+}
+
 // ==========================
 // VISTAS
 // ==========================
 function HomeView() {
-  // Barra superior con título + ordenar + filtros
+  const featuredBlock = `
+    <!-- ⭐ Destacados del mes (Carrusel estilo card) -->
+    <section id="featured" class="relative mb-8">
+      <h2 class="text-xl md:text-2xl font-bold mb-3">⭐ Destacados del mes</h2>
+      <ul class="slider" role="list" aria-label="Destacados del mes"></ul>
+      <nav class="nav" aria-label="Controles del carrusel">
+        <ion-icon class="btn prev" name="arrow-back-outline" aria-label="Anterior"></ion-icon>
+        <ion-icon class="btn next" name="arrow-forward-outline" aria-label="Siguiente"></ion-icon>
+      </nav>
+    </section>
+  `;
+
   const controls = `
     <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div>
@@ -723,7 +919,6 @@ function HomeView() {
           <button id="btnSortZA" class="rounded-xl border border-slate-800 px-3 py-2 text-sm hover:bg-slate-900">Z–A</button>
         </div>
 
-        <!-- Filtros -->
         <div class="segmented-wrap overflow-x-auto">
           <div class="segmented min-w-max">
             <input type="radio" name="cat" id="f-todos" value="todos" checked>
@@ -761,9 +956,9 @@ function HomeView() {
     </div>
   `;
 
-  // Contenedor del grid + Paginador
   return `
     <section class="space-y-6">
+      ${featuredBlock}
       ${controls}
       <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
 
@@ -844,31 +1039,6 @@ function NotFoundView(){
   </div>`;
 }
 
-// Categoría automática para el filtro
-function deriveCategory(app) {
-  const tags = (app.tags || []).map(t => t.toLowerCase());
-  const title = (app.title || '').toLowerCase();
-  const platform = (app.platform || '').toLowerCase();
-
-  // Juegos (por tags)
-  const gameHints = ['juego','juegos','arcade','runner','acción','mundo abierto','estrategia','tower defense'];
-  if (tags.some(t => gameHints.includes(t))) return 'juegos';
-
-  // Windows: decidir Programas vs Sistemas (Lite/Tiny/OS)
-  if (platform.startsWith('windows')) {
-    const isOS =
-      tags.includes('lite') ||
-      tags.includes('bajo-recursos') ||
-      title.includes('tiny') ||
-      title.includes('x lite') ||
-      title.includes('versión lite');
-    return isOS ? 'sistemas' : 'programas';
-  }
-
-  // Resto (Android, etc.)
-  return 'aplicaciones';
-}
-
 // ==========================
 // RENDER
 // ==========================
@@ -880,6 +1050,8 @@ function render(){
   if (route === '' || route === undefined) {
     root.innerHTML = HomeView();
     bindHome();
+    // pintar el carrusel en el Home recién renderizado
+    renderFeaturedInto(document);
   } else if (route === 'app') {
     root.innerHTML = AppView(param);
     bindApp(param);
@@ -897,17 +1069,12 @@ function bindHome() {
   const radios = Array.from(document.querySelectorAll('input[name="cat"]'));
   const resultCount = document.getElementById('resultCount');
 
-  // NEW: paginador
   const prevPageBtn = document.getElementById('prevPage');
   const nextPageBtn = document.getElementById('nextPage');
   const pageInfo = document.getElementById('pageInfo');
 
-  let currentSort = 'AZ'; // 'AZ' | 'ZA'
-  const state = {
-    page: 1,
-    perPage: 8, // <<--- Cambiá a 6 si preferís 6 por página
-    filtered: []
-  };
+  let currentSort = 'AZ';
+  const state = { page: 1, perPage: 8, filtered: [] };
 
   const normalize = (s) =>
     (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -935,12 +1102,10 @@ function bindHome() {
     const q = normalize(search?.value || '');
     const selected = (radios.find(r => r.checked)?.value) || 'todos';
 
-    // ordenar base
     const sorted = [...APPS].sort((a,b) =>
       currentSort === 'AZ' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
     );
 
-    // filtrar por búsqueda + categoría
     state.filtered = sorted.filter(app => {
       const cat = deriveCategory(app);
       const matchesCat = (selected === 'todos') ? true : (cat === selected);
@@ -951,12 +1116,8 @@ function bindHome() {
       return matchesCat && matchesText;
     });
 
-    // reset a primera página al cambiar filtros/búsqueda/orden
     state.page = 1;
-
-    // actualizar contador
     if (resultCount) resultCount.textContent = state.filtered.length;
-
     renderPage();
   }
 
@@ -975,25 +1136,16 @@ function bindHome() {
 
     if (pageInfo) pageInfo.textContent = `${from}-${to} de ${total}`;
     if (prevPageBtn) prevPageBtn.disabled = state.page <= 1 || total === 0;
-    if (nextPageBtn) nextPageBtn.disabled = state.page >= totalPages || total === 0;
+    if (nextPageBtn) prevPageBtn && (nextPageBtn.disabled = state.page >= totalPages || total === 0);
   }
 
-  // eventos de búsqueda / filtros / orden
   search?.addEventListener('input', applyFilters);
   radios.forEach(r => r.addEventListener('change', applyFilters));
-
   $('#btnSortAZ').onclick = () => { currentSort = 'AZ'; applyFilters(); };
   $('#btnSortZA').onclick = () => { currentSort = 'ZA'; applyFilters(); };
+  prevPageBtn?.addEventListener('click', () => { if (state.page > 1) { state.page--; renderPage(); } });
+  nextPageBtn?.addEventListener('click', () => { state.page++; renderPage(); });
 
-  // eventos de paginación
-  prevPageBtn?.addEventListener('click', () => {
-    if (state.page > 1) { state.page--; renderPage(); }
-  });
-  nextPageBtn?.addEventListener('click', () => {
-    state.page++; renderPage();
-  });
-
-  // primera render con filtros por defecto
   applyFilters();
 }
 
@@ -1009,7 +1161,6 @@ function bindApp(slug){
   const timerNum = document.getElementById('timerNum');
   const progress = document.getElementById('progress');
 
-  // desbloqueado previamente
   if (isUnlocked(app.slug)) {
     btnDownload.href = getDownloadUrl(app);
     btnDownload.classList.remove('bg-slate-800','text-slate-400','cursor-not-allowed');
@@ -1023,14 +1174,8 @@ function bindApp(slug){
   let countdown = SITE.unlockSeconds;
   let iv = null;
 
-  $('#btnSubPrincipal').addEventListener('click', () => {
-    clickedPrincipal = true;
-    checkReady();
-  });
-  $('#btnSubSecundario').addEventListener('click', () => {
-    clickedSecundario = true;
-    checkReady();
-  });
+  $('#btnSubPrincipal').addEventListener('click', () => { clickedPrincipal = true; checkReady(); });
+  $('#btnSubSecundario').addEventListener('click', () => { clickedSecundario = true; checkReady(); });
 
   function checkReady() {
     if (clickedPrincipal && clickedSecundario && !iv) {
@@ -1057,13 +1202,13 @@ function bindApp(slug){
   }
 }
 
+// Redirección chip emuladores (si existe)
 (function(){
-    const chip = document.getElementById('f-emuladores');
-    if (!chip) return;
-    chip.addEventListener('change', () => {
-      if (chip.checked) window.location.href = 'emuladores.html';
-    });
-  })();
+  const chip = document.getElementById('f-emuladores');
+  if (!chip) return;
+  chip.addEventListener('change', () => { if (chip.checked) window.location.href = 'emuladores.html'; });
+})();
+
 // ==========================
 // INIT
 // ==========================

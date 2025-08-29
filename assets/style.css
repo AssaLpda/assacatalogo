@@ -7,9 +7,7 @@
 }
 
 /* Scrollbar (Chromium/WebKit) */
-.segmented-wrap::-webkit-scrollbar {
-  height: 8px;
-}
+.segmented-wrap::-webkit-scrollbar { height: 8px; }
 .segmented-wrap::-webkit-scrollbar-track {
   background: rgba(30, 41, 59, 0.6); /* slate-800 */
   border-radius: 8px;
@@ -35,9 +33,7 @@
 }
 
 /* Oculta los radios */
-.segmented input {
-  display: none;
-}
+.segmented input { display: none; }
 
 /* Botones (labels) */
 .segmented label {
@@ -57,9 +53,7 @@
   background: rgba(51, 65, 85, 0.4);       /* slate-700/40 */
   color: #fff;
 }
-.segmented label svg {
-  opacity: 0.8;
-}
+.segmented label svg { opacity: 0.8; }
 
 /* Estado activo */
 .segmented input:checked + label {
@@ -67,21 +61,240 @@
   color: #fff;
   box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4) inset; /* sky-400/40 */
 }
-.segmented input:checked + label svg {
-  opacity: 1;
-}
+.segmented input:checked + label svg { opacity: 1; }
 
 /* Animación sutil (opcional) */
 @media (prefers-reduced-motion: no-preference) {
-  .segmented label:active {
-    transform: translateY(1px);
-  }
+  .segmented label:active { transform: translateY(1px); }
 }
 
 /* === Fallback opcional por CSS (si JS no corre) ===================== */
-/* Si #app lleva data-filter, ocultá lo que no coincida */
 #app[data-filter="juegos"] .app-card:not([data-category~="juegos"]) { display: none !important; }
 #app[data-filter="aplicaciones"] .app-card:not([data-category~="aplicaciones"]) { display: none !important; }
 #app[data-filter="programas"] .app-card:not([data-category~="programas"]) { display: none !important; }
 #app[data-filter="sistemas"] .app-card:not([data-category~="sistemas"]) { display: none !important; }
 
+/* ==== Carrusel estilo card (Destacados del mes) ===================== */
+
+* { box-sizing: border-box; }
+
+#featured { position: relative; }
+#featured .slider { list-style: none; margin: 0; padding: 0; }
+
+/* Tarjetas base (posición absoluta para respetar nth-child) */
+#featured .item {
+  width: 200px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 30px rgba(255,255,255,0.3) inset;
+  transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s, opacity 0.75s;
+}
+
+/* “Hero” (dos primeras ocupan el fondo) */
+#featured .item:nth-child(1),
+#featured .item:nth-child(2) {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 380px;          /* altura hero cómoda */
+  transform: none;
+  border-radius: 16px;
+  box-shadow: none;
+  opacity: 1;
+}
+
+@media (min-width: 900px) {
+  #featured .item:nth-child(1),
+  #featured .item:nth-child(2) { height: 440px; }
+}
+
+/* Cola a la derecha (tarjetas pequeñas) */
+#featured .item:nth-child(3) { left: 50%; }
+#featured .item:nth-child(4) { left: calc(50% + 220px); }
+#featured .item:nth-child(5) { left: calc(50% + 440px); }
+#featured .item:nth-child(6) { left: calc(50% + 660px); opacity: 0; }
+
+/* Contenido del card */
+#featured .content {
+  width: min(30vw, 420px);
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+  transform: translateY(-50%);
+  font: 400 0.95rem helvetica, sans-serif;
+  color: #fff;
+  text-shadow: 0 3px 8px rgba(0,0,0,0.5);
+  opacity: 0;
+  display: none;
+}
+#featured .content .title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+#featured .content .description {
+  line-height: 1.7;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.9rem;
+}
+#featured .content .cta,
+#featured .content button {
+  display: inline-block;
+  background: rgba(0,0,0,0.15);
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* Mostrar texto sobre la segunda tarjeta (la que está top visible) */
+#featured .item:nth-of-type(2) .content {
+  display: block;
+  animation: featured-show 0.75s ease-in-out 0.3s forwards;
+}
+@keyframes featured-show {
+  0%   { filter: blur(5px); transform: translateY(calc(-50% + 75px)); }
+  100% { opacity: 1; filter: blur(0); transform: translateY(-50%); }
+}
+
+/* Botoneras */
+#featured .nav {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  user-select: none;
+}
+#featured .nav .btn {
+  background-color: rgba(255,255,255,0.5);
+  color: rgba(0,0,0,0.7);
+  border: 2px solid rgba(0,0,0,0.6);
+  margin: 0 0.25rem;
+  padding: 0.75rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+#featured .nav .btn:hover { background-color: rgba(255,255,255,0.3); }
+
+/* Overlay: TODO el card es clickeable (sin tapar el texto) */
+#featured .item .item-link {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  z-index: 2;
+}
+#featured .item .content { position: relative; z-index: 3; }
+
+/* Responsivo */
+@media (min-width: 650px) and (max-width: 900px) {
+  #featured .content .title { font-size: 1rem; }
+  #featured .content .description { font-size: 0.8rem; }
+  #featured .content .cta { font-size: 0.8rem; }
+  #featured .item { width: 160px; height: 270px; }
+  #featured .item:nth-child(3) { left: 50%; }
+  #featured .item:nth-child(4) { left: calc(50% + 170px); }
+  #featured .item:nth-child(5) { left: calc(50% + 340px); }
+  #featured .item:nth-child(6) { left: calc(50% + 510px); opacity: 0; }
+}
+
+@media (max-width: 649px) {
+  #featured .content .title { font-size: 0.95rem; }
+  #featured .content .description { font-size: 0.75rem; }
+  #featured .content .cta { font-size: 0.8rem; }
+  #featured .item { width: 130px; height: 220px; }
+  #featured .item:nth-child(3) { left: 50%; }
+  #featured .item:nth-child(4) { left: calc(50% + 140px); }
+  #featured .item:nth-child(5) { left: calc(50% + 280px); }
+  #featured .item:nth-child(6) { left: calc(50% + 420px); opacity: 0; }
+}
+/* === Ajuste de tamaño del carrusel (más bajo y con altura reservada) === */
+
+/* 1) El section ahora reserva altura y así no tapa el contenido siguiente */
+#featured {
+  position: relative;
+  height: 260px;           /* antes no había altura; ajustá a gusto */
+  margin-bottom: 1.25rem;  /* separa del grid de cards */
+}
+
+/* 2) Las dos primeras tarjetas “hero” se adaptan al alto del section */
+#featured .item:nth-child(1),
+#featured .item:nth-child(2) {
+  height: 100%;            /* antes 380/440px fijos */
+}
+
+/* 3) Tarjetas pequeñas (cola) un poco más chicas para que todo se vea más limpio */
+#featured .item {
+  width: 150px;            /* antes 200px */
+  height: 220px;           /* antes 300px */
+}
+
+/* 4) Texto del hero un poco más compacto */
+#featured .content {
+  width: min(28vw, 360px); /* antes min(30vw,420px) */
+  left: 2rem;              /* antes 3rem */
+}
+
+/* ====== Responsivo ====== */
+@media (min-width: 900px) {
+  #featured { height: 300px; }   /* antes 440px en las hero */
+}
+
+@media (min-width: 650px) and (max-width: 899px) {
+  #featured { height: 260px; }
+  #featured .item { width: 140px; height: 210px; }
+}
+
+@media (max-width: 649px) {
+  #featured { height: 200px; }
+  #featured .item { width: 130px; height: 200px; }
+}
+
+/* === Hero más integrado (overlay suave sobre la 2ª tarjeta visible) === */
+#featured .item { position: absolute; }
+#featured .item::after{
+  content:"";
+  position:absolute; inset:0; border-radius:inherit;
+  background: linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 50%, rgba(0,0,0,0) 80%);
+  opacity:0; transition:opacity .3s ease;
+}
+#featured .item:nth-of-type(2)::after{ opacity:.55; }   /* sólo la “activa” */
+
+/* === Dots (paginadores) === */
+#featured .dots{
+  position:absolute; left:50%; transform:translateX(-50%);
+  bottom: 3.25rem;   /* por encima de las flechas */
+  display:flex; gap:.5rem; z-index:6;
+}
+#featured .dot{
+  width:8px; height:8px; border-radius:999px;
+  background:rgba(255,255,255,.45); border:0; cursor:pointer;
+  transition:transform .15s ease, background .15s ease, width .15s ease;
+}
+#featured .dot:hover{ background:rgba(255,255,255,.7); transform:scale(1.1); }
+#featured .dot.active{
+  width:18px; height:8px; border-radius:999px;
+  background:#38bdf8; /* sky-400 aprox */
+}
+@media (max-width: 649px){
+  #featured .dots{ bottom: 3rem; }
+}
+
+/* El contenido no bloquea el click del overlay <a> que cubre la tarjeta */
+#featured .content { pointer-events: none; }
+#featured .content .cta, 
+#featured .content a { pointer-events: auto; } /* por si querés links internos */
+
+/* El texto del hero no bloquea el click del <a.item-link> que cubre toda la tarjeta */
+#featured .content { pointer-events: none; }
+#featured .content .cta, 
+#featured .content a { pointer-events: auto; }
