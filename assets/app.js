@@ -30,7 +30,8 @@ const FEATURED_SLUGS = [
   'tele-latino-tv',
   'spotify-mod-9-0-72-967',
   'dark-play-1-0',
-  'minecraft-1-21-100-6'
+  'hydra-launcher'
+  
 ];
 
 // 2) Autoplay
