@@ -427,7 +427,7 @@ const APPS = [
     size: '20 MB',
     cover: 'assets/img/darkplay.png',
     tags: ['películas', 'series', 'streaming', 'gratis'],
-    description: `Series y películas gratis con la última versión.`,
+    description: `DarkPlay es una aplicación pensada para quienes disfrutan del cine y las series desde su dispositivo. Cuenta con una interfaz sencilla, clara y fácil de navegar, donde podés encontrar tus títulos favoritos sin complicaciones. Ofrece películas y series en excelente calidad, incluyendo los últimos estrenos, así como un amplio catálogo para todos los gustos. Todo en un mismo lugar y con la mejor experiencia de reproducción.`,
     download: 'https://srtslug.biz/8b9Gc',
     mirrors: []
   },
