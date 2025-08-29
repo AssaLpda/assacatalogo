@@ -851,6 +851,22 @@ const APPS = [
     download: 'https://srtslug.biz/8byZh',
     mirrors: []
   },
+
+  {
+  slug: 'hydra-launcher',
+  title: 'Hydra Launcher',
+  platform: 'Windows',
+  version: 'Latest',
+  size: '142 MB',
+  cover: 'https://cdn2.steamgriddb.com/grid/bdde82b7f35c4b6049ad726b4683b482.png',
+  tags: ['launcher', 'juegos', 'biblioteca', 'organizador', 'Windows', 'portadas'],
+  description: `Launcher ligero para PC que te permite DESCARGAR, organizar y lanzar tus juegos desde una sola interfaz. Importá tus títulos, añadí accesos directos, gestioná carátulas/arte, categorías y filtros, y mantené tu biblioteca ordenada con búsqueda rápida y vistas personalizadas.`,
+  download: 'https://srtslug.biz/hydralan',
+  mirrors: []
+},
+
+
+
 ];
 window.APPS = APPS;
 
@@ -1214,3 +1230,107 @@ function bindApp(slug){
 // ==========================
 window.addEventListener('hashchange', render);
 window.addEventListener('DOMContentLoaded', render);
+
+// === 1) Define los tutoriales por slug (agregá más cuando quieras) ===
+const TUTORIALS = {
+  "hydra-launcher": {
+    title: "Cómo usar Hydra Launcher",
+    steps: [
+      "Descargá e instalá Hydra desde el botón de descarga.",
+      "Abrí Hydra y elegí la carpeta donde guardás tus juegos.",
+      "Agregá tus juegos existentes y organizalos con carátulas/categorías.",
+      "Para descargas nuevas, elegí el servidor/mirror con mejor velocidad.",
+      "Iniciá la descarga y seguí el progreso desde la cola de tareas.",
+      "Usalo sólo con juegos gratuitos, demos o contenidos a los que tengas derecho de acceso."
+    ],
+    ctaLabel: "Ir a la descarga",
+    // Si tu array de apps tiene 'download' distinto por app, no pongas href acá y lo leerá desde la card
+    href: "https://srtslug.biz/hydralan"
+  },
+  // Ejemplo de cómo añadir otro (dejado como plantilla):
+  // "otro-slug": { title: "Título", steps: ["Paso 1", "Paso 2"], ctaLabel: "Abrir guía", href: "https://..." }
+};
+
+// === 2) Inyecta dinámicamente el botón "Tutorial" en las cards que tengan tutorial ===
+// Ajustá los selectores si tus cards usan otros nombres de clase
+function injectTutorialButtons() {
+  document.querySelectorAll(".app-card").forEach(card => {
+    const slug = card.getAttribute("data-slug");
+    if (!slug || !TUTORIALS[slug]) return;
+
+    // Evita duplicados
+    if (card.querySelector("[data-tutorial-btn]")) return;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("data-tutorial-btn", "");
+    btn.setAttribute("data-tutorial-slug", slug);
+    btn.className = "mt-3 inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold shadow-sm";
+    btn.textContent = "📘 Tutorial";
+
+    // Si tenés un contenedor de acciones, usalo; si no, lo agrego al final
+    const actions = card.querySelector(".app-actions");
+    (actions || card).appendChild(btn);
+  });
+}
+
+// Si vos mismo renderizás las cards vía JS, llamá a injectTutorialButtons() después de pintarlas.
+// Si no, lo disparamos al cargar:
+document.addEventListener("DOMContentLoaded", injectTutorialButtons);
+
+// === 3) Modal reusable ===
+function openTutorialModal(slug, fromButtonEl) {
+  const t = TUTORIALS[slug];
+  if (!t) return;
+
+  // Título
+  document.getElementById("tutorial-title").textContent = t.title || "Tutorial";
+
+  // Pasos
+  const list = document.getElementById("tutorial-steps");
+  list.innerHTML = "";
+  (t.steps || []).forEach((s, i) => {
+    const li = document.createElement("li");
+    li.className = "flex gap-2";
+    li.innerHTML = `<b>${i+1}.</b> <span>${s}</span>`;
+    list.appendChild(li);
+  });
+
+  // CTAs
+  const cta = document.getElementById("tutorial-cta");
+  const close = document.getElementById("tutorial-close");
+
+  // Preferencia: link del tutorial; si no hay, intenta leer el 'download' de la card
+  let href = t.href;
+  if (!href && fromButtonEl) {
+    const card = fromButtonEl.closest(".app-card");
+    const downloadBtn = card?.querySelector("[data-download-href]");
+    href = downloadBtn?.getAttribute("data-download-href") || "#";
+  }
+
+  cta.textContent = t.ctaLabel || "Abrir";
+  cta.href = href || "#";
+
+  // Mostrar modal
+  document.getElementById("tutorial-overlay").classList.remove("hidden");
+}
+
+// Delegación de eventos para cualquier botón con data-tutorial-slug
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-tutorial-btn]");
+  if (btn) {
+    const slug = btn.getAttribute("data-tutorial-slug");
+    openTutorialModal(slug, btn);
+  }
+});
+
+// Cerrar modal
+function closeTutorialModal() {
+  document.getElementById("tutorial-overlay").classList.add("hidden");
+}
+document.addEventListener("click", (e) => {
+  if (e.target.matches("#tutorial-overlay, #tutorial-close")) closeTutorialModal();
+});
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeTutorialModal();
+});
