@@ -212,7 +212,7 @@ const APPS = [
     size: '2 GB',
     cover: '/assets/img/adobe.png',
     tags: ['edición de video', 'animación', 'adobe', 'premium'],
-    description: `Instalá Adobe After Effects 2025 y elegí la versión que más te guste para tus proyectos de video y animación.`,
+    description: `Instalá Adobe After Effects 2025 y elegí la versión que más te guste para tus proyectos de video y animación. "CLAVE PARA DESCOMPRIMIR" : AssaAR10`,
     download: 'https://srtslug.biz/AffterEffect2025',
     mirrors: []
   },
