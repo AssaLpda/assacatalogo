@@ -866,26 +866,33 @@ const APPS = [
   mirrors: []
 },
 {
-  slug: 'licencias-activacion-3-keys',
-  title: 'Licencias Originales Windows 11 Pro',
+  slug: 'licencias-windows-3-keys',
+  title: 'Licencias Windows – 3 Keys',
   platform: 'Windows',
   version: 'Multi',
   size: '—',
-  cover: '/assets/img/win11.jpg',
+  cover: 'assets/img/win11.jpg',
   tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
-  description: `Con estas 3 claves vas a poder activar tu Windows de forma legal y gratis para siempre.
+  description: `
+    <p class="mb-2">Con estas 3 claves vas a poder activar tu Windows.</p>
 
-Keys:
-• 7N7DG-8XH7K-3FDH4-2CMPH-HXMP2
-• NTWXQ-J3PF4-Q7M4D-FTTJB-2PQGP
-• N89T7-TH69W-B4YXK-2YKR8-BWRC2
+    <p class="text-slate-300 font-semibold mt-3">Keys:</p>
+    <ul class="list-disc list-inside space-y-1 font-mono text-sm bg-slate-900/40 p-3 rounded-xl border border-slate-800">
+      <li>7N7DG-8XH7K-3FDH4-2CMPH-HXMP2</li>
+      <li>NTWXQ-J3PF4-Q7M4D-FTTJB-2PQGP</li>
+      <li>N89T7-TH69W-B4YXK-2YKR8-BWRC2</li>
+    </ul>
 
-Instrucciones:
-1) Ir a Configuración → Sistema → Activación → Cambiar clave de producto.
-2) Pegá una de las claves y confirmá.
-3) Tu windows quedara activado para siempre.`,
+    <p class="text-slate-300 font-semibold mt-4">Instrucciones:</p>
+    <ol class="list-decimal list-inside space-y-1">
+      <li>Ir a <strong>Configuración → Sistema → Activación → Cambiar clave de producto</strong>.</li>
+      <li>Pegá una de las claves y confirmá.</li>
+      <li>Si Windows lo solicita, reiniciá el equipo.</li>
+    </ol>
+  `,
   mirrors: [],
 },
+
 
 
 
