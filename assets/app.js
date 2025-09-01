@@ -876,9 +876,9 @@ const APPS = [
   description: `Con estas 3 claves vas a poder activar tu Windows de forma legal y gratis para siempre.
 
 Keys:
-• D4W8F-N8X3V-4MY96-4DFW9-TF4B3
-• QB4NQ-3VR2V-7P2V7-KM8X4-JHV26
-• XPNTM-MFHVJ-QP3XR-42G7Q-7T9TT
+• 7N7DG-8XH7K-3FDH4-2CMPH-HXMP2
+• NTWXQ-J3PF4-Q7M4D-FTTJB-2PQGP
+• N89T7-TH69W-B4YXK-2YKR8-BWRC2
 
 Instrucciones:
 1) Ir a Configuración → Sistema → Activación → Cambiar clave de producto.
