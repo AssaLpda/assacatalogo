@@ -865,6 +865,27 @@ const APPS = [
   download: 'https://srtslug.biz/hydralan',
   mirrors: []
 },
+{
+  slug: 'licencias-activacion-3-keys',
+  title: 'Licencias Originales Windows 11 Pro',
+  platform: 'Windows',
+  version: 'Multi',
+  size: '—',
+  cover: '/assets/img/win11.jpg',
+  tags: ['windows', 'custom iso', 'optimización', 'gaming', 'rendimiento', 'debloat', 'bajo-recursos'],
+  description: `Con estas 3 claves vas a poder activar tu Windows de forma legal y gratis para siempre.
+
+Keys:
+• CXN37-9TQK6-VXH9Y-TVM68-TQ726
+• QB4NQ-3VR2V-7P2V7-KM8X4-JHV26
+• XPNTM-MFHVJ-QP3XR-42G7Q-7T9TT
+
+Instrucciones:
+1) Ir a Configuración → Sistema → Activación → Cambiar clave de producto.
+2) Pegá una de las claves y confirmá.
+3) Tu windows quedara activado para siempre.`,
+  mirrors: [],
+},
 
 
 
