@@ -867,7 +867,7 @@ const APPS = [
 },
 {
   slug: 'licencias-windows-3-keys',
-  title: 'Licencias Windows – 3 Keys',
+  title: 'Como activar WINDOWS 100% LEGAL',
   platform: 'Windows',
   version: 'Multi',
   size: '—',
