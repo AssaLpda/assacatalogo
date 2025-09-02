@@ -892,7 +892,18 @@ const APPS = [
   `,
   mirrors: [],
 },
-
+{
+  slug: 'pack-optimizador-windows',
+  title: 'Pack Optimizador de Windows',
+  platform: 'Windows',
+  version: '1.0',
+  size: '4 MB',
+  cover: 'assets/img/fps.png',
+  tags: ['windows', 'optimización', 'gaming', 'fps', 'tweaks', 'scripts', 'debloat'],
+  description: `Conjunto liviano de scripts y utilidades para mejorar el rendimiento en Windows: limpieza de bloatware, ajustes de servicios, plan de energía para juegos, prioridad de procesos, desactivación de telemetría, limpieza de cachés/temporales y creación de punto de restauración antes de aplicar cambios. Ideal para PCs de bajos recursos o para exprimir FPS.`,
+  download: 'https://srtslug.biz/optimizador',
+  mirrors: []
+},
 
 
 
