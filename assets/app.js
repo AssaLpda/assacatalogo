@@ -910,7 +910,7 @@ const APPS = [
     platform: 'Android/TV',
     version: 'Pro',
     size: '65 MB',
-    cover: 'assets/img/magis.png',
+    cover: 'assets/img/mgstvpro.jpg',
     tags: ['iptv', 'tv', 'canales', 'series', 'películas'],
     description: `Más de 1300 canales en vivo, películas y series.`,
     download: 'https://srtslug.biz/8cxnS',
