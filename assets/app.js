@@ -906,7 +906,7 @@ const APPS = [
 },
 {
     slug: 'magis-tv-pro-tv',
-    title: 'Magis TV Pro – 3/09/2025',
+    title: 'Magis TV Pro –Actualizado 3/09/2025',
     platform: 'Android/TV',
     version: 'Pro',
     size: '65 MB',
