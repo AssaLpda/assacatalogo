@@ -916,6 +916,18 @@ const APPS = [
     download: 'https://srtslug.biz/8cxnS',
     mirrors: []
   },
+  {
+    slug: 'tele-latino-tv',
+    title: 'Tele Latino – Actualizado 3/09/2025',
+    platform: 'Android/TV',
+    version: 'TV',
+    size: '35 MB',
+    cover: 'assets/img/tlatino.jpg',
+    tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'latino', 'streaming', 'android tv'],
+    description: `Edición optimizada para Android TV y TV Box.`,
+    download: 'https://srtslug.biz/tlatino',
+    mirrors: []
+  },
 
 
 
