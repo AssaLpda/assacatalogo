@@ -717,7 +717,7 @@ const APPS = [
     cover: 'assets/img/magistvtv.png',
     tags: ['iptv', 'tv', 'canales', 'series', 'películas', 'streaming', 'android tv', 'tv box'],
     description: `Optimizada para Android TV y TV Box.`,
-    download: 'https://stly.link/mgtvtv',
+    download: 'https://srtslug.biz/8cxnS',
     mirrors: []
   },
   {
@@ -904,6 +904,18 @@ const APPS = [
   download: 'https://srtslug.biz/optimizador',
   mirrors: []
 },
+{
+    slug: 'magis-tv-pro-tv',
+    title: 'Magis TV Pro – 3/09/2025',
+    platform: 'Android/TV',
+    version: 'Pro',
+    size: '65 MB',
+    cover: 'assets/img/magis.png',
+    tags: ['iptv', 'tv', 'canales', 'series', 'películas'],
+    description: `Más de 1300 canales en vivo, películas y series.`,
+    download: 'https://srtslug.biz/8cxnS',
+    mirrors: []
+  },
 
 
 
