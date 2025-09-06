@@ -878,10 +878,63 @@ const APPS = [
 
     <p class="text-slate-300 font-semibold mt-3">Keys:</p>
     <ul class="list-disc list-inside space-y-1 font-mono text-sm bg-slate-900/40 p-3 rounded-xl border border-slate-800">
+      <p>Windows 11 Key </p>
       <li>7N7DG-8XH7K-3FDH4-2CMPH-HXMP2</li>
       <li>NTWXQ-J3PF4-Q7M4D-FTTJB-2PQGP</li>
       <li>N89T7-TH69W-B4YXK-2YKR8-BWRC2</li>
+      <li>KGB44-9ND3K-WVYX9-6K6BW-W44C2</li>
+      <li>KQNKB-K7TKT-V327Y-GHVBH-X766P</li>
+      <p> </p>
+
+      <p>🖥 Windows 10/11 RTM Professional OEM:DM</p>
+
+      <li>2GNB8-DXKRM-4TQWW-46B92-4RG6P</li>
+      <li>YQQX3-NMXJX-BHKHM-TCTK6-QYH22</li>
+      <li>CQ3NH-WYMGQ-C2T6B-V9PWB-RC2KC</li>
+      <li>BQVWF-K2NJ9-3PDWH-447RV-CYT6P</li>
+      <li>YNTV8-8C486-BCWT6-TQCP6-PDKTP</li>
+      <li>VT2JN-CXX6W-KBHGR-F9XPF-TVJXC</li>
+      <li>FNX3B-44Q79-GHMT7-FVPVV-X766P</li>
+      <li>9277G-HN8YR-PCCFH-8WFVT-HFR9C</li>
+      <li>YNHPX-TX474-X3BV8-9JWTG-683GP</li>
+      <li>7D3VP-4NQM4-F6B2X-FXJCG-QYH22</li>
+      <li>R8N3H-9F8JX-Y3D39-MRCP7-GCQGP</li>
+
+      <p> Windows 10 / 11 RTM Education Volume:MAK Key
+</p>
+
+      <li>D4W8F-N8X3V-4MY96-4DFW9-TF4B3 </li>
+      <li>M4JJ8-RYN3D-2C2MC-QFJG2-JB48D </li>  
+      
+      <h3>Windows 10/11 RTM Professional OEM:DM</h3>
+
+      <li>88N8X-BXVRG-PWBGX-KGDMB-BBH22</li>
+      <li>M7FJ3-NWRBB-9GBV2-TGGHX-7XMP2</li>
+      <li>2WNDB-D4H2B-R9VWH-KCPJB-6VJXC</li>
+      <li>8JN8H-26M72-PKV3R-PW9QH-2R4C2</li>
+      <li>QF8N4-XWYC9-XRMC2-WCQTJ-CPQGP</li>
+
+      <h3>📱 Windows 10 RTM Professional Retail</h3>
+
+      <li>CXN37-9TQK6-VXH9Y-TVM68-TQ726</li>
+      <li>QB4NQ-3VR2V-7P2V7-KM8X4-JHV26</li>
+      <li>XPNTM-MFHVJ-QP3XR-42G7Q-7T9TT</li>
+      <li>T6G4N-JB39V-RT4D2-TG6CF-8B49G</li>
+      <li>VJC77-N8JF4-WH7RW-QW9Y2-TMT6T</li>
+      <li>VRX9F-NVK49-HBRJ7-QPBHF-JHV26</li>
+      <li>F33NG-BJ9XP-D2JWT-DRT9V-6XXTT</li>
+      <li>BBW8D-CNYYH-HWB8R-GT2GK-DYH26</li>
+      <li>WXHJN-9J82J-2HDDW-XGQC7-46YP6</li>
+      <li>CD4NX-PBT4K-QYCMJ-MVMWR-369TT</li>
+      <li>H6PMB-D8NK6-4J7RR-GH3F6-6F4C6</li>
+      <li>362YT-RMN3P-HJXWW-8Y6WC-76DGT</li>
+      <li>KDKNP-GKX72-QPGRK-FBJJP-J44C6</li>
+    
+
+
+
     </ul>
+    
 
     <p class="text-slate-300 font-semibold mt-4">Instrucciones:</p>
     <ol class="list-decimal list-inside space-y-1">
